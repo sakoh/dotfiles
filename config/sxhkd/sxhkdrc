@@ -120,6 +120,14 @@ super + alt + shift + {h,j,k,l}
 super + {Left,Down,Up,Right}
 	bspc node -v {-20 0,0 20,0 -20,20 0}
 
+# volume control
+alt + F2
+	amixer set Master 5%-
+alt + F3
+	amixer set Master 5%+
+alt + F1
+        amixer set Master toggle
+
 # App Shortcuts
 super + alt + b
 	brave
@@ -133,9 +141,3 @@ super + alt + m
 super + alt +g
 	steam
 
-# Power
-super + alt + ctrl + p
-	sudo poweroff
-
-super + alt + ctrl + r
-	sudo reboot 

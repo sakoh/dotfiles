@@ -43,9 +43,9 @@ Battery() {
 }
 
 Sound() {
-	NOTMUTED=$( amixer -c 1 sget Master | grep "\[on\]" )
+	NOTMUTED=$( amixer sget Master | grep "\[on\]" )
 	if [[ ! -z $NOTMUTED ]] ; then
-		VOL=$(awk -F"[][]" '/dB/ { print $2 }' <(amixer -c 1 sget Master) | sed 's/%//g')
+		VOL=$(awk -F"[][]" '/dB/ { print $2 }' <(amixer sget Master) | sed 's/%//g')
 		if [ $VOL -ge 85 ] ; then
 			echo -n "\uf028 ${VOL}%"
 		elif [ $VOL -ge 50 ] ; then
