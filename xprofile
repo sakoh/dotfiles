@@ -1,3 +1,4 @@
 nitrogen --restore 
+pulseaudio &
 picom -f &
 exec bspwm

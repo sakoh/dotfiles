@@ -8,7 +8,7 @@ super + Return
 
 # program launcher
 super + @space
-	dmenu_run
+	rofi -show run	
 
 # make sxhkd reload its configuration files:
 super + Escape
@@ -133,11 +133,13 @@ super + alt + b
 	brave
 
 super + alt + d
-	discord
+	discord	
 
 super + alt + m
 	spotify
 
-super + alt +g
+super + alt + g
 	steam
 
+super + alt + n
+	nitrogen
