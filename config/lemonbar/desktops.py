@@ -29,7 +29,7 @@ for index, item in enumerate(output):
 	output = str(output).replace("'","").replace("b","").replace("\\n", "")
 	
 	if item == output:
-		desktops.append("%{+u}" + icons[index] + "%{-u}")
+		desktops.append("%{B#bf616a}%{F#2e3440} " + icons[index] + " %{B-}%{F-}")
 	else:
 		desktops.append(" " + icons[index] + " ") 
 		

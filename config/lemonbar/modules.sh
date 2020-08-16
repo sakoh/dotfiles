@@ -23,7 +23,7 @@ ActiveWindow() {
 
 Clock() {
 	TIME=$(date "+%H:%M:%S")
-	echo -n " \uf017 ${TIME}" 
+	echo -n "%{B#81a1c1}%{F#2e3440} \uf017 ${TIME} %{B-}%{F-}" 
 }
 
 Battery() {
@@ -32,19 +32,25 @@ Battery() {
 
 	if [[ "$(acpi | awk '{print $3}')" == 'Charging,' ]]; then
         	ICON="\uf5e7"
+		BGCOLOR="#a3be8c"
 	elif [[ $BAT -ge 90 ]]; then
 		ICON="\uf240"
+		BGCOLOR="#a3be8c"
 	elif [[ $BAT -ge 75 ]]; then	
 		ICON="\uf241"
+		BGCOLOR="#ebcb8b"
 	elif [[ $BAT -ge 50 ]]; then
 		ICON="\uf242"
+		BGCOLOR="#ebcb8b"
 	elif [[ $BAT -ge 25 ]]; then
 		ICON="\uf243"
+		BGCOLOR="#ebcb8b"
 	else
-		ICON="\uf244"	
+		ICON="\uf244"
+		BGCOLOR="#bf616a"	
 	fi
 
-	echo -n "$ICON $BATPERC";
+	echo -n "%{B$BGCOLOR}%{F#2e3440} $ICON $BATPERC %{B-}%{F-}";
 }
 
 Sound() {
@@ -52,14 +58,14 @@ Sound() {
 	VOL=$(awk -F"[][]" 'NR==6{ print $2 }' <(amixer sget Master) | sed 's/%//g')
 	if [[ ! -z $NOTMUTED ]] ; then
 		if [[ $VOL -ge 50 ]]; then
-			echo -n "\uf028 $VOL%"
+			echo -n "%{B#a3be8c}%{F#2e3440} \uf028 $VOL% %{B-}%{F-}"
 		elif [[$VOL -eq 0 ]]; then
-			echo -n "\uf026 $VOL%"
+			echo -n "%{B#ebcb8b}%{F#2e3440} \uf026 $VOL% %{B-}%{F-}"
 		else
-			echo -n "\uf027 $VOL%"
+			echo -n "%{B#ebcb8b}%{F#2e3440} \uf027 $VOL% %{B-}%{F-}"
 		fi
 	else
-		echo -n "\uf026 Muted" 
+		echo -n "%{B#a3be8c}%{F#2e3440} \uf026 Muted " 
 	fi
 }
 
@@ -67,14 +73,14 @@ Wifi() {
 	STATE=$(connmanctl state | awk 'NR == 1 {print $3}')
 	
 	if [[ $STATE == "online" ]]; then
-		echo -n " $(connmanctl services | awk 'NR == 1 {print $2}')"
+		echo -n "%{B#88c0d0}%{F#2e3440}  $(connmanctl services | awk 'NR == 1 {print $2}') %{B-}%{F-}"
 	else
-		echo -n "睊Not Connected"
+		echo -n "%{B#88c0d0}%{F#2e3440}睊Not Connected %{B-}%{F-}"
 	fi
 }
 
 while true; do
-        echo -e "%{l}$(Desktops) $(ActiveWindow) %{r}$(Sound) $(Wifi)  $(Clock)  $(Battery)  "
+        echo -e "%{l}$(Desktops) $(ActiveWindow) %{r}$(Sound)$(Wifi)$(Clock)$(Battery)"
         sleep 0.1;
 done
 
