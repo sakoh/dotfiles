@@ -2,8 +2,6 @@
 
 PANEL_FIFO=/tmp/panel-fifo
 
-#killall -q lemonbar
-
 [ -e $PANEL_FIFO ] && rm $PANEL_FIFO 
 mkfifo $PANEL_FIFO
 
@@ -21,7 +19,7 @@ ActiveWindow() {
 		len=$(echo -n "$(xdotool getwindowfocus getwindowname)" | wc -m)
 		max_len=70
 		if [ "$len" -gt "$max_len" ];then
-			echo "ACTIVE_WINDOW $(xdotool getwindowfocus getwindowname | cut -c 1-$max_len)..." 
+			echo "ACTIVE_WINDOW $(xdotool getwindowfocus getwindowname | cut -c 1-$max_len)..."
 		else
 			echo "ACTIVE_WINDOW $(xdotool getwindowfocus getwindowname)" 
 		fi
@@ -57,7 +55,7 @@ Battery() {
 		fi
 
 		echo -e "BATTERY %{B#a3be8c}%{F#2e3440} $ICON $BATPERC %{B-}%{F-}" 
-		sleep 10
+		sleep 1
 	done 
 }
 
@@ -123,6 +121,6 @@ while read -r line; do
 			fn_battery="${line#BATTERY }"
 			;;
 	esac
-	printf "%s\n" "%{l}$fn_desktop $fn_active_window %{r}$fn_sound$fn_wifi$fn_clock$fn_battery" 
+	printf "%s\n" "%{l}$fn_desktop $(echo $fn_active_window | sed 's/ACTIVE_WINDOW//g' )  %{r}$fn_sound$fn_wifi$fn_clock$fn_battery" 
 done < $PANEL_FIFO 
 
