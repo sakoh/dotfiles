@@ -62,19 +62,21 @@ Battery() {
 Sound() {
 	while true; do
 		BGCOLOR="#ebcb8b"
+		FGCOLOR="#2e3440"
 		NOTMUTED=$( amixer sget Master | grep "\[on\]" )
 		VOL=$(awk -F"[][]" 'NR==6{ print $2 }' <(amixer sget Master) | sed 's/%//g')
 		if [[ ! -z $NOTMUTED ]] ; then
 			if [[ $VOL -ge 50 ]]; then
-				echo -e "SOUND %{B$BGCOLOR}%{F#2e3440} \uf028 $VOL% %{B-}%{F-}" 
+				echo -e "SOUND %{A:alacritty -e alsamixer:}%{B$BGCOLOR}%{F$FGCOLOR} \uf028 $VOL% %{B-}%{F-}%{A}" 
 			elif [[$VOL -eq 0 ]]; then
-				echo -e "SOUND %{B$BGCOLOR}%{F#2e3440} \uf026 $VOL% %{B-}%{F-}" 
+				echo -e "SOUND %{A:alacritty -e alsamixer:}%{B$BGCOLOR}%{F$FGCOLOR} \uf026 $VOL% %{B-}%{F-}%{A}" 
 			else
-				echo -e "SOUND %{B$BGCOLOR}%{F#2e3440} \uf027 $VOL% %{B-}%{F-}" 
+				echo -e "SOUND %{A:alacritty -e alsamixer:}%{B$BGCOLOR}%{F$FGCOLOR} \uf027 $VOL% %{B-}%{F-}%{A}" 
 			fi
-		else
-			echo -e "SOUND %{B$BGCOLOR}%{F#2e3440} \uf026 Muted " 
+		else		
+			echo -e "SOUND %{A:alacritty -e 'ls':}%{B$BGCOLOR}%{F$FGCOLOR} \uf026 Muted %{B-}%{F-}%{A}" 
 		fi
+		
 		sleep 1;
 	done
 }
@@ -121,6 +123,6 @@ while read -r line; do
 			fn_battery="${line#BATTERY }"
 			;;
 	esac
-	printf "%s\n" "%{l}$fn_desktop $(echo $fn_active_window | sed 's/ACTIVE_WINDOW//g' )  %{r}$fn_sound$fn_wifi$fn_clock$fn_battery" 
+	printf "%s\n" "%{l}$fn_desktop  $(echo $fn_active_window | sed 's/ACTIVE_WINDOW//g' )  %{r}$fn_sound$fn_wifi$fn_clock$fn_battery" 
 done < $PANEL_FIFO 
 
