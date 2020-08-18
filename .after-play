@@ -1,0 +1,3 @@
+#!/usr/bin/bash
+picom -f &
+bspc wm -r
