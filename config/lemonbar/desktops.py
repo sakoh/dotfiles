@@ -1,37 +1,42 @@
 import subprocess
-#bspc query -N -d 0x0040000D | wc -l
 #import pdb
 
-def get_output_from_bash_cmd(cmd):
+def get_output_from_bspc(cmd):
 	process = subprocess.Popen(cmd.split(), stdout = subprocess.PIPE)
 	output, error = process.communicate()
-	
+
 	if error:
 		print(error)
 		exit()
-	
-	return output 
+
+	return output
+
+def desktop_has_nodes(desktop):
+	num_nodes_query = "bspc query -d " + desktop + " -N"
+	return int.from_bytes(get_output_from_bspc(num_nodes_query), "big")
 
 #pdb.set_trace()
-cmd = "bspc query -D"
-output = get_output_from_bash_cmd(cmd)
+all_desktops_query = "bspc query -D"
 
-output = str(output).split("\\n")
-output.pop()
-output[0] = output[0].replace("b'","")
+all_desktops = get_output_from_bspc(all_desktops_query)
+all_desktops = str(all_desktops).split("\\n")
+all_desktops.pop()
+all_desktops[0] = all_desktops[0].replace("b'","")
+
 desktops = []
 icons = [ "\uf120", "\uf57d", "\uf086", "\uf11b", "\uf001", ]
 
-for index, item in enumerate(output):
-	cmd = "bspc query -D -d"
-	output = get_output_from_bash_cmd(cmd)
-	
-	output = str(output).replace("'","").replace("b","").replace("\\n", "")
-	
-	if item == output:
+for index, item in enumerate(all_desktops):
+	current_desktop_query = "bspc query -D -d"
+	current_desktop = get_output_from_bspc(current_desktop_query)
+	current_desktop = str(current_desktop).replace("'","").replace("b","").replace("\\n", "")
+
+	if item == current_desktop:
 		desktops.append("%{B#bf616a}%{F#2e3440}  " + icons[index] + "  %{B-}%{F-}")
+	elif desktop_has_nodes(item):
+		desktops.append("%{A:bspc desktop -f " + item  + ":}%{B#81a1c1}%{F#2e3440}  " + icons[index] + "  %{B-}%{F-}%{A-}")
 	else:
-		desktops.append(" %{A:bspc desktop -f " + item  + ":}  " + icons[index] + " %{A-}  ") 
-		
+		desktops.append("%{A:bspc desktop -f " + item  + ":}  " + icons[index] + " %{A-}")
+
 print(("\U00000009").join(desktops))
 
