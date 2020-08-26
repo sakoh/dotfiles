@@ -145,6 +145,9 @@ super + alt + m
 super + alt + g
 	steam
 
+super + ctrl + g
+	lutris
+
 super + alt + n
 	nitrogen
 
