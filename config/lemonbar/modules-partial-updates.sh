@@ -26,7 +26,7 @@ Desktops() {
 
 ActiveWindow() {
 	while true; do
-		echo "ACTIVE_WINDOW $(xdotool getwindowfocus getwindowname)"
+		echo "ACTIVE_WINDOW  $(xdotool getwindowfocus getwindowname) "
 		sleep 1
 	done
 }
@@ -52,13 +52,13 @@ Battery() {
 			BGCOLOR=$GREEN
 		elif [[ $BAT -ge 75 ]]; then	
 			ICON="\uf241"
-			BGCOLOR=$YELLOW
+			BGCOLOR=$GREEN
 		elif [[ $BAT -ge 50 ]]; then
 			ICON="\uf242"
 			BGCOLOR=$YELLOW
 		elif [[ $BAT -ge 25 ]]; then
 			ICON="\uf243"
-			BGCOLOR=$RED
+			BGCOLOR=$YELLOW
 		else
 			ICON="\uf244"
 			BGCOLOR=$RED
@@ -71,21 +71,28 @@ Battery() {
 
 Sound() {
 	while true; do
-		BGCOLOR=$YELLOW
 		NOTMUTED=$( amixer sget Master | grep "\[on\]" )
 		VOL=$(awk -F"[][]" 'NR==6{ print $2 }' <(amixer sget Master) | sed 's/%//g')
 		if [[ ! -z $NOTMUTED ]] ; then
+			OUTPUT="$VOL%"
 			if [[ $VOL -ge 50 ]]; then
-				echo -e "SOUND %{A:alacritty -e alsamixer:}%{B$BGCOLOR}%{F$FGCOLOR} \uf028 $VOL% %{B-}%{F-}%{A}" 
-			elif [[$VOL -eq 0 ]]; then
-				echo -e "SOUND %{A:alacritty -e alsamixer:}%{B$BGCOLOR}%{F$FGCOLOR} \uf026 $VOL% %{B-}%{F-}%{A}" 
+				BGCOLOR=$GREEN
+				ICON="\uf028"
+			elif [[$VOL -le 0 ]]; then
+				BGCOLOR=$RED
+				ICON="\uf026"
 			else
-				echo -e "SOUND %{A:alacritty -e alsamixer:}%{B$BGCOLOR}%{F$FGCOLOR} \uf027 $VOL% %{B-}%{F-}%{A}" 
+				BGCOLOR=$YELLOW
+				ICON="\uf027"
 			fi
-		else		
-			echo -e "SOUND %{A:alacritty -e 'ls':}%{B$BGCOLOR}%{F$FGCOLOR} \uf026 Muted %{B-}%{F-}%{A}" 
+		else	
+			BGCOLOR=$RED
+			OUTPUT="Muted"	
+			ICON="\uf026"
 		fi
 		
+		echo -e "SOUND %{A:alacritty -e alsamixer:}%{B$BGCOLOR}%{F$FGCOLOR} $ICON $OUTPUT %{B-}%{F-
+    }%{A}"	
 		sleep 1;
 	done
 }
@@ -95,12 +102,12 @@ Wifi() {
 		STATE=$(connmanctl state | awk 'NR == 1 {print $3}')
 		BGCOLOR=$MAGENTA	
 		if [[ $STATE == "online" ]]; then
-			echo "WIFI %{B$BGCOLOR}%{F$FGCOLOR}  $(connmanctl services | awk 'NR == 1 {print $2}') %{B-}%{F-}" 
+			echo "WIFI %{A:connman-gtk:}%{B$BGCOLOR}%{F$FGCOLOR}  $(connmanctl services | awk 'NR == 1 {print $2}') %{B-}%{F-}%{A}" 
 		else
-			echo "WIFI %{B$BGCOLOR}%{F$FGCOLOR}睊Not Connected %{B-}%{F-}" 
+			echo "WIFI %{A:connman-gtk:}%{B$BGCOLOR}%{F$FGCOLOR}睊Not Connected %{B-}%{F-}%{A}" 
 		fi
 	
-		sleep 10;
+		sleep 3;
 	done
 }
 
@@ -132,6 +139,6 @@ while read -r line; do
 			fn_battery="${line#BATTERY }"
 			;;
 	esac
-	printf "%s\n" "%{l}$fn_desktop  %{c}$(echo $fn_active_window | sed 's/ACTIVE_WINDOW//g' )  %{r}$fn_sound$fn_wifi$fn_clock$fn_battery" 
+	printf "%s\n" "%{l}$fn_desktop $(echo $fn_active_window | sed 's/ACTIVE_WINDOW//g' )  %{r}${fn_sound}${fn_wifi}${fn_bluetooth}${fn_clock}${fn_battery}" 
 done < $PANEL_FIFO 
 
