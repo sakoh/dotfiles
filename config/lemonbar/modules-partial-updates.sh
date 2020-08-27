@@ -91,8 +91,7 @@ Sound() {
 			ICON="\uf026"
 		fi
 		
-		echo -e "SOUND %{A:alacritty -e alsamixer:}%{B$BGCOLOR}%{F$FGCOLOR} $ICON $OUTPUT %{B-}%{F-
-    }%{A}"	
+		echo -e "SOUND %{A:alacritty -e alsamixer:}%{B$BGCOLOR}%{F$FGCOLOR} $ICON $OUTPUT %{B-}%{F-}%{A}"	
 		sleep 1;
 	done
 }
@@ -139,6 +138,6 @@ while read -r line; do
 			fn_battery="${line#BATTERY }"
 			;;
 	esac
-	printf "%s\n" "%{l}$fn_desktop $(echo $fn_active_window | sed 's/ACTIVE_WINDOW//g' )  %{r}${fn_sound}${fn_wifi}${fn_bluetooth}${fn_clock}${fn_battery}" 
+	printf "%s\n" "%{l}$fn_desktop $(echo $fn_active_window | sed 's/ACTIVE_WINDOW//g' )  %{r}${fn_sound}${fn_wifi}${fn_clock}${fn_battery}" 
 done < $PANEL_FIFO 
 
