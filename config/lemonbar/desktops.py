@@ -47,7 +47,7 @@ for index, item in enumerate(all_desktops):
 	if item == current_desktop:
 		desktops.append(render_current_desktop(icons[index]))
 	elif desktop_has_nodes(item):
-		desktops.append(render_desktop_with_bg_color_and_action_handler(item, icons[index], blue))
+		desktops.append(render_desktop_with_bg_color_and_action_handler(item, icons[index], magenta))
 	else:
 		desktops.append(render_desktop_with_bg_color_and_action_handler(item, icons[index], cyan))
 
