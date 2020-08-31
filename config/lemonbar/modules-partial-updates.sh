@@ -34,7 +34,7 @@ ActiveWindow() {
 Clock() {
 	while true; do
 		TIME=$(date "+%H:%M:%S")
-		echo -e "CLOCK %{B$BLUE}%{F#2e3440} \uf017 ${TIME} %{B-}%{F-}" 
+		echo -e "CLOCK %{B$CYAN}%{F#2e3440} \uf017 ${TIME} %{B-}%{F-}"
 		sleep 1;
 	done
 }
