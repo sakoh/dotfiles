@@ -138,6 +138,6 @@ while read -r line; do
 			fn_battery="${line#BATTERY }"
 			;;
 	esac
-	printf "%s\n" "%{l}$fn_desktop $(echo $fn_active_window | sed 's/ACTIVE_WINDOW//g' )  %{r}${fn_sound}${fn_wifi}${fn_clock}${fn_battery}" 
+	printf "%s\n" "%{l}$fn_desktop  $(echo $fn_active_window | sed 's/ACTIVE_WINDOW//g' )  %{r}${fn_sound}${fn_wifi}${fn_clock}${fn_battery}" 
 done < $PANEL_FIFO 
 
