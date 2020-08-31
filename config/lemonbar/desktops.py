@@ -19,7 +19,7 @@ def get_output_from_bspc(cmd):
 	return output
 
 def desktop_has_nodes(desktop):
-	num_nodes_query = "bspc query -d %s -N" %(desktop)
+	num_nodes_query = f"bspc query -d {desktop} -N"
 	return int.from_bytes(get_output_from_bspc(num_nodes_query), "big")
 
 def render_current_desktop(icon):
