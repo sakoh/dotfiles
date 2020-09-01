@@ -3,7 +3,6 @@ import subprocess
 
 # colors
 red = "#bf616a"
-blue = "#81a1c1"
 magenta = "#b48ead"
 cyan = "#88c0d0"
 fg_color = "#2e3440"
