@@ -110,12 +110,21 @@ Wifi() {
 	done
 }
 
+CheckUpdates() {
+	while true; do
+		UPDATES=$(yay -Qu | wc -l)
+		echo -e "CHECKUPDATES %{A:alacritty -e yay -Syu:}%{B$BLUE}%{F$FGCOLOR} \uf466 $UPDATES updates %{B-}%{F-}%{A}"
+		sleep 3600;
+	done
+}
+
 Desktops > $PANEL_FIFO &
 ActiveWindow > $PANEL_FIFO &
 Sound > $PANEL_FIFO &
 Wifi > $PANEL_FIFO &
 Clock > $PANEL_FIFO &
 Battery > $PANEL_FIFO &
+CheckUpdates > $PANEL_FIFO &
 
 while read -r line; do
 	case $line in
@@ -137,7 +146,10 @@ while read -r line; do
 		BATTERY*)
 			fn_battery="${line#BATTERY }"
 			;;
+		CHECKUPDATES*)
+			fn_checkupdates="${line#CHECKUPDATES }"
+			;;
 	esac
-	printf "%s\n" "%{l}$fn_desktop  $(echo $fn_active_window | sed 's/ACTIVE_WINDOW//g' )  %{r}${fn_sound}${fn_wifi}${fn_clock}${fn_battery}" 
+	printf "%s\n" "%{l}$fn_desktop  $(echo $fn_active_window | sed 's/ACTIVE_WINDOW//g' )  %{r}${fn_sound}${fn_wifi}${fn_checkupdates}${fn_clock}${fn_battery}" 
 done < $PANEL_FIFO 
 
