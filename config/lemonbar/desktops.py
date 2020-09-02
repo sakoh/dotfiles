@@ -5,7 +5,10 @@ import subprocess
 red = "#bf616a"
 magenta = "#b48ead"
 cyan = "#88c0d0"
-fg_color = "#2e3440"
+blue = "#81a1c1"
+green = "#a3be8c"
+bg_color = "#2e3440"
+fg_color = "#d8dee9"
 
 def get_output_from_bspc(cmd):
 	process = subprocess.Popen(cmd.split(), stdout = subprocess.PIPE)
@@ -22,9 +25,9 @@ def desktop_has_nodes(desktop):
 	return int.from_bytes(get_output_from_bspc(num_nodes_query), "big")
 
 def render_current_desktop(icon):
-	return f"%{{B{red}}}%{{F{fg_color}}}  {icon}  %{{B-}}%{{F-}}"
+	return f"%{{B{cyan}}}%{{F{bg_color}}}  {icon}  %{{B-}}%{{F-}}"
 
-def render_desktop_with_bg_color_and_action_handler(desktop, icon, bg_color):
+def render_desktop_with_bg_color_and_action_handler(desktop, icon, bg_color, fg_color):
 	return f"%{{A:bspc desktop -f {desktop} :}}%{{B{bg_color}}}%{{F{fg_color}}}  {icon}  %{{B-}}%{{F-}}%{{A-}}"
 
 #pdb.set_trace()
@@ -46,9 +49,9 @@ for index, item in enumerate(all_desktops):
 	if item == current_desktop:
 		desktops.append(render_current_desktop(icons[index]))
 	elif desktop_has_nodes(item):
-		desktops.append(render_desktop_with_bg_color_and_action_handler(item, icons[index], magenta))
+		desktops.append(render_desktop_with_bg_color_and_action_handler(item, icons[index], blue, bg_color))
 	else:
-		desktops.append(render_desktop_with_bg_color_and_action_handler(item, icons[index], cyan))
+		desktops.append(render_desktop_with_bg_color_and_action_handler(item, icons[index], bg_color, fg_color))
 
 print(("\U00000009").join(desktops))
 
