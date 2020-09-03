@@ -112,7 +112,7 @@ Wifi() {
 
 CheckUpdates() {
 	while true; do
-		UPDATES=$(yay -Qu | wc -l)
+		UPDATES=$(pacman -Qu | wc -l)
 		echo -e "CHECKUPDATES %{A:alacritty -e yay -Syu:}%{B$BLUE}%{F$FGCOLOR} \uf466 $UPDATES updates %{B-}%{F-}%{A}"
 		sleep 3600;
 	done
