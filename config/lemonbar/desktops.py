@@ -3,13 +3,7 @@ import subprocess
 
 # colors
 red = "#bf616a"
-magenta = "#b48ead"
 cyan = "#88c0d0"
-blue = "#81a1c1"
-green = "#a3be8c"
-yellow = "#ebcb8b"
-beige = "#f5f5dc"
-white = "#e5e9f0"
 hover_color = "#2e3440"
 
 def get_output_from_bspc(cmd):
@@ -29,9 +23,12 @@ def desktop_has_nodes(desktop):
 def add_bg_hover(markup):
 	return f"%{{B{hover_color}}}{markup}%{{B-}}"
 
+def add_action_handler(markup, desktop):
+	return f"%{{A:bspc desktop -f {desktop}:}}{markup}%{{A}}"
+
 def render_desktop(desktop, icon):
 	color = red if desktop_has_nodes(desktop) else cyan
-	return f"%{{A:bspc desktop -f {desktop}:}}%{{U{color}}}%{{F{color}}}%{{+u}}  {icon}  %{{-u}}%{{U-}}%{{F-}}%{{A}}"
+	return f"%{{U{color}}}%{{F{color}}}%{{+u}}  {icon}  %{{-u}}%{{U-}}%{{F-}}"
 
 #pdb.set_trace()
 all_desktops_query = "bspc query -D"
@@ -52,7 +49,7 @@ for index, item in enumerate(all_desktops):
 	if item == current_desktop:
 		desktops.append(add_bg_hover(render_desktop(item, icons[index])))
 	else:
-		desktops.append(render_desktop(item, icons[index]))
+		desktops.append(add_action_handler(render_desktop(item, icons[index]), item))
 
 print(("\U00000009").join(desktops))
 
