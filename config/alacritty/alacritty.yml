@@ -10,7 +10,7 @@
 
 colors:
   primary:
-    background: '#2e3440'
+    background: '#101726'
     foreground: '#d8dee9'
   cursor:
     text: '#2e3440'
@@ -33,3 +33,7 @@ colors:
     magenta: '#b48ead'
     cyan: '#8fbcbb'
     white: '#eceff4'
+
+font:
+  regular: 
+	family: "Hack"

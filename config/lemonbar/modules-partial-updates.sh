@@ -103,7 +103,7 @@ Wifi() {
 CheckUpdates() {
 	while true; do
 		UPDATES=$(pacman -Qu | wc -l)
-		echo -e "CHECKUPDATES %{A:alacritty -e yay -Syu:}%{U$BLUE}%{F$BLUE} %{+u} \uf466 $UPDATES %{-u} %{U-}%{F-}%{A}"
+		echo -e "CHECKUPDATES %{A:alacritty -e yay -Syu:}%{U$MAGENTA}%{F$MAGENTA} %{+u} \uf466 $UPDATES %{-u} %{U-}%{F-}%{A}"
 		sleep 3600;
 	done
 }
@@ -118,17 +118,17 @@ Memory() {
 Temperature() {
 	while true; do
 		TEMP=$(sensors | awk 'NR ==10 {print $2}')
-		TEMP_NUM=$(tr -dc '0-9' <<< $TEMP)
+		TEMP_NUM=$(sensors | awk 'NR ==10 {print $2}' | sed '/+//g' | 's/[^[:digit:]]\+//g' )
 
-		if [[$TEMP_NUM -ge 80]]; then
+		if [[$TEMP_NUM -ge 700]]; then
 			ICON="\uf2c7"
 			BGCOLOR=$RED
-		elif [[$TEMP_NUM -ge 60]]; then
+		elif [[$TEMP_NUM -ge 500]]; then
 			ICON="\uf2c9"
 			BGCOLOR=$YELLOW
 		else
 			ICON="\uf2cb"
-			BGCOLOR=$BLUE
+			BGCOLOR=$CYAN
 		fi
 		
 		echo -e "TEMPERATURE %{A:alacritty -e sensors:}%{U$BGCOLOR}%{F$BGCOLOR} %{+u} $ICON $TEMP %{-u} %{U-}%{F-}%{A}"
