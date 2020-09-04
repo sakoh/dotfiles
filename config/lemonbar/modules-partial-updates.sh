@@ -24,13 +24,6 @@ Desktops() {
 	done 	
 }
 
-ActiveWindow() {
-	while true; do
-		echo -e "ACTIVE_WINDOW $(xdotool getwindowfocus getwindowname) " 
-		sleep 1
-	done
-}
-
 Clock() {
 	while true; do
 		TIME=$(date "+%H:%M:%S")
@@ -144,7 +137,6 @@ Temperature() {
 }
 
 Desktops > $PANEL_FIFO &
-ActiveWindow > $PANEL_FIFO &
 Sound > $PANEL_FIFO &
 Wifi > $PANEL_FIFO &
 Clock > $PANEL_FIFO &
@@ -157,9 +149,6 @@ while read -r line; do
 	case $line in
 		DESKTOPS*)
 			fn_desktop="${line#DESKTOPS }"
-			;;
-		ACTIVE_WINDOW*)
-			fn_active_window="${line#ACTIVE_WINDOW }"
 			;;
 		SOUND*)
 			fn_sound="${line#SOUND }"
@@ -183,6 +172,6 @@ while read -r line; do
 			fn_temperature="${line#TEMPERATURE }"
 			;;
 	esac
-	printf "%s\n" "%{l}$fn_desktop  $(echo $fn_active_window | sed 's/ACTIVE_WINDOW//g' )  %{r}${fn_sound}${fn_wifi}${fn_temperature}${fn_memory}${fn_checkupdates}${fn_clock}${fn_battery}" 
+	printf "%s\n" "%{l}$fn_desktop  %{r}${fn_sound}${fn_wifi}${fn_temperature}${fn_memory}${fn_checkupdates}${fn_clock}${fn_battery}" 
 done < $PANEL_FIFO 
 
