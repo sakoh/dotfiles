@@ -7,6 +7,7 @@ magenta = "#b48ead"
 cyan = "#88c0d0"
 blue = "#81a1c1"
 green = "#a3be8c"
+white = "#d8dee9"
 bg_color = "#2e3440"
 fg_color = "#d8dee9"
 
@@ -27,11 +28,8 @@ def desktop_has_nodes(desktop):
 def render_current_desktop(icon):
 	return f"%{{U{red}}}%{{F{red}}}%{{+u}}  {icon}  %{{-u}}%{{U-}}%{{F-}}"
 
-def render_empty_desktop(desktop, icon):
-	return f"%{{A:bspc desktop -f {desktop}:}}  {icon}  %{{A}}"
-
-def render_desktop_with_nodes(desktop, icon):
-	return f"%{{A:bspc desktop -f {desktop}:}}%{{U{cyan}}}%{{F{cyan}}}%{{+u}}  {icon}  %{{-u}}%{{U-}}%{{F-}}%{{A}}"
+def render_desktop(desktop, icon, color):
+	return f"%{{A:bspc desktop -f {desktop}:}}%{{U{color}}}%{{F{color}}}%{{+u}}  {icon}  %{{-u}}%{{U-}}%{{F-}}%{{A}}"
 
 #pdb.set_trace()
 all_desktops_query = "bspc query -D"
@@ -52,9 +50,9 @@ for index, item in enumerate(all_desktops):
 	if item == current_desktop:
 		desktops.append(render_current_desktop(icons[index]))
 	elif desktop_has_nodes(item):
-		desktops.append(render_desktop_with_nodes(item, icons[index]))
+		desktops.append(render_desktop(item, icons[index], cyan))
 	else:
-		desktops.append(render_empty_desktop(item, icons[index]))
+		desktops.append(render_desktop(item, icons[index], white))
 
 print(("\U00000009").join(desktops))
 
