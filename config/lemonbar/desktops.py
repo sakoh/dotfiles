@@ -25,10 +25,13 @@ def desktop_has_nodes(desktop):
 	return int.from_bytes(get_output_from_bspc(num_nodes_query), "big")
 
 def render_current_desktop(icon):
-	return f"%{{B{cyan}}}%{{F{bg_color}}}  {icon}  %{{B-}}%{{F-}}"
+	return f"%{{U{red}}}%{{F{red}}}%{{+u}}  {icon}  %{{-u}}%{{U-}}%{{F-}}"
 
-def render_desktop_with_bg_color_and_action_handler(desktop, icon, bg_color, fg_color):
-	return f"%{{A:bspc desktop -f {desktop} :}}%{{B{bg_color}}}%{{F{fg_color}}}  {icon}  %{{B-}}%{{F-}}%{{A-}}"
+def render_empty_desktop(desktop, icon):
+	return f"%{{A:bspc desktop -f {desktop}:}}  {icon}  %{{A}}"
+
+def render_desktop_with_nodes(desktop, icon):
+	return f"%{{A:bspc desktop -f {desktop}:}}%{{U{cyan}}}%{{F{cyan}}}%{{+u}}  {icon}  %{{-u}}%{{U-}}%{{F-}}%{{A}}"
 
 #pdb.set_trace()
 all_desktops_query = "bspc query -D"
@@ -49,9 +52,9 @@ for index, item in enumerate(all_desktops):
 	if item == current_desktop:
 		desktops.append(render_current_desktop(icons[index]))
 	elif desktop_has_nodes(item):
-		desktops.append(render_desktop_with_bg_color_and_action_handler(item, icons[index], blue, bg_color))
+		desktops.append(render_desktop_with_nodes(item, icons[index]))
 	else:
-		desktops.append(render_desktop_with_bg_color_and_action_handler(item, icons[index], bg_color, fg_color))
+		desktops.append(render_empty_desktop(item, icons[index]))
 
 print(("\U00000009").join(desktops))
 

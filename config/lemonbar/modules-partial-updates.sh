@@ -34,7 +34,7 @@ ActiveWindow() {
 Clock() {
 	while true; do
 		TIME=$(date "+%H:%M:%S")
-		echo -e "CLOCK %{B$CYAN}%{F#2e3440} \uf017 ${TIME} %{B-}%{F-}"
+		echo -e "CLOCK %{U$CYAN}%{F$CYAN} %{+u} \uf017 ${TIME} %{-u} %{U-}%{F-}  "
 		sleep 1;
 	done
 }
@@ -61,7 +61,7 @@ Battery() {
 			BGCOLOR=$RED
 		fi
 
-		echo -e "BATTERY %{B$BGCOLOR}%{F$FGCOLOR} $ICON $BATPERC %{B-}%{F-}" 
+		echo -e "BATTERY %{U$BGCOLOR}%{F$BGCOLOR} %{+u} $ICON $BATPERC %{-u} %{U-}%{F-} " 
 		sleep 2
 	done 
 }
@@ -73,22 +73,22 @@ Sound() {
 		if [[ ! -z $NOTMUTED ]] ; then
 			OUTPUT="$VOL%"
 			if [[ $VOL -ge 50 ]]; then
-				BGCOLOR=$GREEN
+				UGCOLOR=$GREEN
 				ICON="\uf028"
 			elif [[$VOL -le 0 ]]; then
-				BGCOLOR=$RED
+				UGCOLOR=$RED
 				ICON="\uf026"
 			else
-				BGCOLOR=$YELLOW
+				UGCOLOR=$YELLOW
 				ICON="\uf027"
 			fi
 		else	
-			BGCOLOR=$RED
+			UGCOLOR=$RED
 			OUTPUT="Muted"	
 			ICON="\uf026"
 		fi
 		
-		echo -e "SOUND %{A:alacritty -e alsamixer:}%{B$BGCOLOR}%{F$FGCOLOR} $ICON $OUTPUT %{B-}%{F-}%{A}"	
+		echo -e "SOUND %{A:alacritty -e alsamixer:}%{U$UGCOLOR}%{F$UGCOLOR} %{+u} $ICON $OUTPUT %{A} %{-u} %{U-}%{F-}"	
 		sleep 1;
 	done
 }
@@ -98,9 +98,9 @@ Wifi() {
 		STATE=$(connmanctl state | awk 'NR == 1 {print $3}')
 		BGCOLOR=$MAGENTA	
 		if [[ $STATE == "online" ]]; then
-			echo "WIFI %{A:connman-gtk:}%{B$BGCOLOR}%{F$FGCOLOR}  $(connmanctl services | awk 'NR == 1 {print $2}') %{B-}%{F-}%{A}" 
+			echo "WIFI %{A:connman-gtk:}%{U$BGCOLOR}%{F$BGCOLOR} %{+u}  $(connmanctl services | awk 'NR == 1 {print $2}') %{-u} %{U-}%{F-}%{A}" 
 		else
-			echo "WIFI %{A:connman-gtk:}%{B$BGCOLOR}%{F$FGCOLOR}睊Not Connected %{B-}%{F-}%{A}" 
+			echo "WIFI %{A:connman-gtk:}%{U$BGCOLOR}%{F$BGCOLOR} %{+u} 睊Not Connected %{-u} %{U-}%{F-}%{A}" 
 		fi
 	
 		sleep 3;
@@ -110,21 +110,21 @@ Wifi() {
 CheckUpdates() {
 	while true; do
 		UPDATES=$(pacman -Qu | wc -l)
-		echo -e "CHECKUPDATES %{A:alacritty -e yay -Syu:}%{B$BLUE}%{F$FGCOLOR} \uf466 $UPDATES %{B-}%{F-}%{A}"
+		echo -e "CHECKUPDATES %{A:alacritty -e yay -Syu:}%{U$BLUE}%{F$BLUE} %{+u} \uf466 $UPDATES %{-u} %{U-}%{F-}%{A}"
 		sleep 3600;
 	done
 }
 
 Memory() {
 	while true; do
-		echo -e "MEMORY %{B$YELLOW}%{F$FGCOLOR} \uf538 $(free -h | awk '/^Mem:/ {print $3 "/" $2}') %{B-}%{F-}"
+		echo -e "MEMORY %{U$YELLOW}%{F$YELLOW} %{+u} \uf538 $(free -h | awk '/^Mem:/ {print $3 "/" $2}') %{-u} %{U-}%{F-}"
 		sleep 1;
 	done
 }
 
 Temperature() {
 	while true; do
-		echo -e "TEMPERATURE %{A:alacritty -e sensors:}%{B$RED updates}%{F$FGCOLOR} \uf2c7 $(sensors | awk '/^temp1: / {print $2}') %{B-}%{F-}%{A}"
+		echo -e "TEMPERATURE %{A:alacritty -e sensors:}%{U$RED}%{F$RED} %{+u} \uf2c7 $(sensors | awk 'NR==10 {print $2}') %{-u} %{U-}%{F-}%{A}"
 		sleep 1;
 	done
 }
