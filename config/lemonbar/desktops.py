@@ -26,10 +26,11 @@ def desktop_has_nodes(desktop):
 	num_nodes_query = f"bspc query -d {desktop} -N"
 	return int.from_bytes(get_output_from_bspc(num_nodes_query), "big")
 
-def render_current_desktop(icon):
-	return f"%{{B{hover_color}}}%{{U{red}}}%{{F{red}}}%{{+u}}  {icon}  %{{-u}}%{{B-}}%{{U-}}%{{F-}}"
+def add_bg_hover(markup):
+	return f"%{{B{hover_color}}}{markup}%{{B-}}"
 
-def render_desktop(desktop, icon, color):
+def render_desktop(desktop, icon):
+	color = red if desktop_has_nodes(desktop) else cyan
 	return f"%{{A:bspc desktop -f {desktop}:}}%{{U{color}}}%{{F{color}}}%{{+u}}  {icon}  %{{-u}}%{{U-}}%{{F-}}%{{A}}"
 
 #pdb.set_trace()
@@ -49,11 +50,9 @@ for index, item in enumerate(all_desktops):
 	current_desktop = str(current_desktop).replace("'","").replace("b","").replace("\\n", "")
 
 	if item == current_desktop:
-		desktops.append(render_current_desktop(icons[index]))
-	elif desktop_has_nodes(item):
-		desktops.append(render_desktop(item, icons[index], red))
+		desktops.append(add_bg_hover(render_desktop(item, icons[index])))
 	else:
-		desktops.append(render_desktop(item, icons[index], cyan))
+		desktops.append(render_desktop(item, icons[index]))
 
 print(("\U00000009").join(desktops))
 
