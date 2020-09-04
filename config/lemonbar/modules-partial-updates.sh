@@ -124,7 +124,21 @@ Memory() {
 
 Temperature() {
 	while true; do
-		echo -e "TEMPERATURE %{A:alacritty -e sensors:}%{U$RED}%{F$RED} %{+u} \uf2c7 $(sensors | awk 'NR==10 {print $2}') %{-u} %{U-}%{F-}%{A}"
+		TEMP=$(sensors | awk 'NR ==10 {print $2}')
+		TEMP_NUM=$(tr -dc '0-9' <<< $TEMP)
+
+		if [[$TEMP_NUM -ge 80]]; then
+			ICON="\uf2c7"
+			BGCOLOR=$RED
+		elif [[$TEMP_NUM -ge 60]]; then
+			ICON="\uf2c9"
+			BGCOLOR=$YELLOW
+		else
+			ICON="\uf2cb"
+			BGCOLOR=$BLUE
+		fi
+		
+		echo -e "TEMPERATURE %{A:alacritty -e sensors:}%{U$BGCOLOR}%{F$BGCOLOR} %{+u} $ICON $TEMP %{-u} %{U-}%{F-}%{A}"
 		sleep 1;
 	done
 }
