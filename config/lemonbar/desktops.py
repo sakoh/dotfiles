@@ -7,7 +7,6 @@ magenta = "#b48ead"
 cyan = "#88c0d0"
 blue = "#81a1c1"
 green = "#a3be8c"
-white = "#d8dee9"
 bg_color = "#2e3440"
 fg_color = "#d8dee9"
 
@@ -26,7 +25,7 @@ def desktop_has_nodes(desktop):
 	return int.from_bytes(get_output_from_bspc(num_nodes_query), "big")
 
 def render_current_desktop(icon):
-	return f"%{{U{red}}}%{{F{red}}}%{{+u}}  {icon}  %{{-u}}%{{U-}}%{{F-}}"
+	return f"%{{U{green}}}%{{F{green}}}%{{+u}}  {icon}  %{{-u}}%{{U-}}%{{F-}}"
 
 def render_desktop(desktop, icon, color):
 	return f"%{{A:bspc desktop -f {desktop}:}}%{{U{color}}}%{{F{color}}}%{{+u}}  {icon}  %{{-u}}%{{U-}}%{{F-}}%{{A}}"
@@ -50,9 +49,9 @@ for index, item in enumerate(all_desktops):
 	if item == current_desktop:
 		desktops.append(render_current_desktop(icons[index]))
 	elif desktop_has_nodes(item):
-		desktops.append(render_desktop(item, icons[index], cyan))
+		desktops.append(render_desktop(item, icons[index], magenta))
 	else:
-		desktops.append(render_desktop(item, icons[index], white))
+		desktops.append(render_desktop(item, icons[index], cyan))
 
 print(("\U00000009").join(desktops))
 
