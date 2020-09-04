@@ -26,7 +26,7 @@ Desktops() {
 
 ActiveWindow() {
 	while true; do
-		echo "ACTIVE_WINDOW  $(xdotool getwindowfocus getwindowname) "
+		echo -e "ACTIVE_WINDOW $(xdotool getwindowfocus getwindowname) " 
 		sleep 1
 	done
 }
@@ -50,14 +50,11 @@ Battery() {
 		elif [[ $BAT -ge 90 ]]; then
 			ICON="\uf240"
 			BGCOLOR=$GREEN
-		elif [[ $BAT -ge 75 ]]; then	
+		elif [[ $BAT -ge 50 ]]; then	
 			ICON="\uf241"
 			BGCOLOR=$GREEN
-		elif [[ $BAT -ge 50 ]]; then
-			ICON="\uf242"
-			BGCOLOR=$YELLOW
 		elif [[ $BAT -ge 25 ]]; then
-			ICON="\uf243"
+			ICON="\uf242"
 			BGCOLOR=$YELLOW
 		else
 			ICON="\uf244"
@@ -113,8 +110,22 @@ Wifi() {
 CheckUpdates() {
 	while true; do
 		UPDATES=$(pacman -Qu | wc -l)
-		echo -e "CHECKUPDATES %{A:alacritty -e yay -Syu:}%{B$BLUE}%{F$FGCOLOR} \uf466 $UPDATES updates %{B-}%{F-}%{A}"
+		echo -e "CHECKUPDATES %{A:alacritty -e yay -Syu:}%{B$BLUE}%{F$FGCOLOR} \uf466 $UPDATES %{B-}%{F-}%{A}"
 		sleep 3600;
+	done
+}
+
+Memory() {
+	while true; do
+		echo -e "MEMORY %{B$YELLOW}%{F$FGCOLOR} \uf538 $(free -h | awk '/^Mem:/ {print $3 "/" $2}') %{B-}%{F-}"
+		sleep 1;
+	done
+}
+
+Temperature() {
+	while true; do
+		echo -e "TEMPERATURE %{A:alacritty -e sensors:}%{B$RED updates}%{F$FGCOLOR} \uf2c7 $(sensors | awk '/^temp1: / {print $2}') %{B-}%{F-}%{A}"
+		sleep 1;
 	done
 }
 
@@ -125,6 +136,8 @@ Wifi > $PANEL_FIFO &
 Clock > $PANEL_FIFO &
 Battery > $PANEL_FIFO &
 CheckUpdates > $PANEL_FIFO &
+Memory > $PANEL_FIFO &
+Temperature > $PANEL_FIFO &
 
 while read -r line; do
 	case $line in
@@ -149,7 +162,13 @@ while read -r line; do
 		CHECKUPDATES*)
 			fn_checkupdates="${line#CHECKUPDATES }"
 			;;
+		MEMORY*)
+			fn_memory="${line#MEMORY }"
+			;;
+		TEMPERATURE*)
+			fn_temperature="${line#TEMPERATURE }"
+			;;
 	esac
-	printf "%s\n" "%{l}$fn_desktop  $(echo $fn_active_window | sed 's/ACTIVE_WINDOW//g' )  %{r}${fn_sound}${fn_wifi}${fn_checkupdates}${fn_clock}${fn_battery}" 
+	printf "%s\n" "%{l}$fn_desktop  $(echo $fn_active_window | sed 's/ACTIVE_WINDOW//g' )  %{r}${fn_sound}${fn_wifi}${fn_temperature}${fn_memory}${fn_checkupdates}${fn_clock}${fn_battery}" 
 done < $PANEL_FIFO 
 
