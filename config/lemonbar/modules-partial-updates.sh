@@ -27,7 +27,7 @@ Desktops() {
 Clock() {
 	while true; do
 		TIME=$(date "+%H:%M:%S")
-		echo -e "CLOCK %{U$CYAN}%{F$CYAN} %{+u} \uf017 ${TIME} %{-u} %{U-}%{F-}  "
+		echo -e "CLOCK %{U$CYAN}%{F$CYAN} %{+u} \uf017 ${TIME} %{-u}%{U-}%{F-}"
 		sleep 1;
 	done
 }
@@ -54,7 +54,7 @@ Battery() {
 			BGCOLOR=$RED
 		fi
 
-		echo -e "BATTERY %{U$BGCOLOR}%{F$BGCOLOR} %{+u} $ICON $BATPERC %{-u} %{U-}%{F-} " 
+		echo -e "BATTERY %{U$BGCOLOR}%{F$BGCOLOR} %{+u} $ICON $BATPERC %{-u}%{U-}%{F-} " 
 		sleep 2
 	done 
 }
@@ -81,7 +81,7 @@ Sound() {
 			ICON="\uf026"
 		fi
 		
-		echo -e "SOUND %{A:alacritty -e alsamixer:}%{U$UGCOLOR}%{F$UGCOLOR} %{+u} $ICON $OUTPUT %{A} %{-u} %{U-}%{F-}"	
+		echo -e "SOUND %{A:alacritty -e alsamixer:}%{U$UGCOLOR}%{F$UGCOLOR} %{+u} $ICON $OUTPUT %{A} %{-u}%{U-}%{F-}"	
 		sleep 1;
 	done
 }
@@ -91,7 +91,7 @@ Wifi() {
 		STATE=$(connmanctl state | awk 'NR == 1 {print $3}')
 		BGCOLOR=$MAGENTA	
 		if [[ $STATE == "online" ]]; then
-			echo "WIFI %{A:connman-gtk:}%{U$BGCOLOR}%{F$BGCOLOR} %{+u}  $(connmanctl services | awk 'NR == 1 {print $2}') %{-u} %{U-}%{F-}%{A}" 
+			echo "WIFI %{A:connman-gtk:}%{U$BGCOLOR}%{F$BGCOLOR} %{+u}  $(connmanctl services | awk 'NR == 1 {print $2}') %{-u}%{U-}%{F-}%{A}" 
 		else
 			echo "WIFI %{A:connman-gtk:}%{U$BGCOLOR}%{F$BGCOLOR} %{+u} 睊Not Connected %{-u} %{U-}%{F-}%{A}" 
 		fi
@@ -103,14 +103,14 @@ Wifi() {
 CheckUpdates() {
 	while true; do
 		UPDATES=$(pacman -Qu | wc -l)
-		echo -e "CHECKUPDATES %{A:alacritty -e yay -Syu:}%{U$MAGENTA}%{F$MAGENTA} %{+u} \uf466 $UPDATES %{-u} %{U-}%{F-}%{A}"
+		echo -e "CHECKUPDATES %{A:alacritty -e yay -Syu:}%{U$MAGENTA}%{F$MAGENTA} %{+u} \uf466 $UPDATES %{-u}%{U-}%{F-}%{A}"
 		sleep 3600;
 	done
 }
 
 Memory() {
 	while true; do
-		echo -e "MEMORY %{U$YELLOW}%{F$YELLOW} %{+u} \uf538 $(free -h | awk '/^Mem:/ {print $3 "/" $2}') %{-u} %{U-}%{F-}"
+		echo -e "MEMORY %{U$YELLOW}%{F$YELLOW} %{+u} \uf538 $(free -h | awk '/^Mem:/ {print $3 "/" $2}') %{-u}%{U-}%{F-}"
 		sleep 1;
 	done
 }
@@ -139,6 +139,7 @@ while read -r line; do
 		DESKTOPS*)
 			fn_desktop="${line#DESKTOPS }"
 			;;
+
 		SOUND*)
 			fn_sound="${line#SOUND }"
 			;;
@@ -161,6 +162,6 @@ while read -r line; do
 			fn_temperature="${line#TEMPERATURE }"
 			;;
 	esac
-	printf "%s\n" "%{l}$fn_desktop  %{r}${fn_sound}${fn_wifi}${fn_temperature}${fn_memory}${fn_checkupdates}${fn_clock}${fn_battery}" 
+	printf "%s\n" "%{l}$fn_desktop  %{r}$fn_sound $fn_wifi $fn_temperature $fn_memory $fn_checkupdates $fn_clock $fn_battery" 
 done < $PANEL_FIFO 
 
