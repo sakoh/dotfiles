@@ -121,7 +121,7 @@ Temperature() {
 		OUTPUT=$(python $HOME/.config/lemonbar/temperature.py $TEMP)
 		
 		echo -e "TEMPERATURE $OUTPUT"
-		sleep 1;
+		sleep 0.5;
 	done
 }
 
