@@ -118,20 +118,9 @@ Memory() {
 Temperature() {
 	while true; do
 		TEMP=$(sensors | awk 'NR ==10 {print $2}')
-		TEMP_NUM=$(sensors | awk 'NR ==10 {print $2}' | sed '/+//g' | 's/[^[:digit:]]\+//g' )
-
-		if [[$TEMP_NUM -ge 700]]; then
-			ICON="\uf2c7"
-			BGCOLOR=$RED
-		elif [[$TEMP_NUM -ge 500]]; then
-			ICON="\uf2c9"
-			BGCOLOR=$YELLOW
-		else
-			ICON="\uf2cb"
-			BGCOLOR=$CYAN
-		fi
+		OUTPUT=$(python $HOME/.config/lemonbar/temperature.py $TEMP)
 		
-		echo -e "TEMPERATURE %{A:alacritty -e sensors:}%{U$BGCOLOR}%{F$BGCOLOR} %{+u} $ICON $TEMP %{-u} %{U-}%{F-}%{A}"
+		echo -e "TEMPERATURE $OUTPUT"
 		sleep 1;
 	done
 }
