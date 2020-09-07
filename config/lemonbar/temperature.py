@@ -10,12 +10,12 @@ temp = sys.argv[1]
 def make_temp_dict(temp):
 	temp_float = float(re.findall("\d+\.\d+",str(temp))[0])
 
-	if temp_float > 70.0:
+	if temp_float > 80.0:
 		return {
 			"icon": "\uf2c7",
 			"color": red
 		}
-	elif temp_float > 50.0:
+	elif temp_float > 60.0:
 		return {
 			"icon": "\uf2c9",
 			"color": yellow
