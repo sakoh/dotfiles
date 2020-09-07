@@ -8,11 +8,11 @@ super + Return
 
 # program launcher
 super + @space
-	dmenu_run -h 45
+	dmenu_run -h 45 -nb "#101726" -fn "#d8dee9" -fn "Hack Bold Nerd Font Complete Mono-20"
 
 # window switcher
-super + alt + s
-	rofi -show
+#super + alt + s
+#	rofi -show
 
 # make sxhkd reload its configuration files:
 super + Escape
