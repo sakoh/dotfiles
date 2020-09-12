@@ -101,12 +101,10 @@ Wifi() {
 }
 
 CheckUpdates() {
-	sudo pacman -Sy &
-
 	while true; do
-		UPDATES=$(pacman -Qu | wc -l)
+		UPDATES=$(checkupdates | wc -l)
 		echo -e "CHECKUPDATES %{A:alacritty -e yay -Syu:}%{U$MAGENTA}%{F$MAGENTA} %{+u} \uf466 $UPDATES %{-u}%{U-}%{F-}%{A}"
-		sleep 30;
+		sleep 10;
 	done
 }
 
