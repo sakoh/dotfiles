@@ -61,8 +61,8 @@ Battery() {
 
 Sound() {
 	while true; do
-		NOTMUTED=$( amixer sget Master | grep "\[on\]" )
-		VOL=$(awk -F"[][]" 'NR==6{ print $2 }' <(amixer sget Master) | sed 's/%//g')
+		NOTMUTED=$( amixer -c 1 sget Master | grep "\[on\]" )
+		VOL=$(amixer -c 1 sget Master | awk -F'[][]' 'NR==5 {print $2}' | sed 's/%//g')
 		if [[ ! -z $NOTMUTED ]] ; then
 			OUTPUT="$VOL%"
 			if [[ $VOL -ge 50 ]]; then
