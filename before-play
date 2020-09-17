@@ -1,0 +1,5 @@
+#!/usr/bin/bash
+
+pkill lemonbar
+pkill picom
+
