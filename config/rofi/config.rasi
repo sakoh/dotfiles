@@ -23,17 +23,17 @@
     alternate-normal-foreground: @foreground;
     normal-background:           rgba ( 0, 0, 208, 0 % );
     lightfg:                     rgba ( 88, 104, 117, 100 % );
-    selected-normal-background:  rgba ( 219, 223, 188, 100 % );
+    selected-normal-background:  rgba (235, 203, 139, 1);
     border-color:                @background;
     spacing:                     2;
-    separatorcolor:              rgba ( 219, 223, 188, 100 % );
+    separatorcolor:              rgba (235, 203, 139, 1);
     urgent-background:           rgba ( 0, 0, 208, 0 % );
-    selected-urgent-background:  rgba ( 255, 129, 127, 100 % );
+    selected-urgent-background:  rgba (235, 203, 139, 1);
     alternate-urgent-foreground: @urgent-foreground;
     background-color:            rgba ( 0, 0, 0, 0 % );
     alternate-active-foreground: @active-foreground;
     active-background:           rgba (235, 203, 139, 1);
-    selected-active-background:  rgba ( 138, 196, 255, 100 % );
+    selected-active-background:  rgba (235, 203, 139, 1);
 }
 #window {
     background-color: @background;
