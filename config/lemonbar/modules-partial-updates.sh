@@ -91,9 +91,9 @@ Wifi() {
 		STATE=$(connmanctl state | awk 'NR == 1 {print $3}')
 		BGCOLOR=$MAGENTA
 		if [[ $STATE == "online" ]]; then
-			echo "WIFI %{A:connman-gtk:}%{U$BGCOLOR}%{F$BGCOLOR} %{+u}  %{-u}%{U-}%{F-}%{A}"
+			echo "WIFI %{A:$HOME/.config/rofi/scripts/wifi:}%{U$BGCOLOR}%{F$BGCOLOR} %{+u}  %{-u}%{U-}%{F-}%{A}"
 		else
-			echo "WIFI %{A:connman-gtk:}%{U$BGCOLOR}%{F$BGCOLOR} %{+u} 睊Not Connected %{-u} %{U-}%{F-}%{A}"
+			echo "WIFI %{A:$HOME/.config/rofi/scripts/wifi:}%{U$BGCOLOR}%{F$BGCOLOR} %{+u} 睊Not Connected %{-u} %{U-}%{F-}%{A}"
 		fi
 
 		sleep 3;
@@ -103,7 +103,7 @@ Wifi() {
 CheckUpdates() {
 	while true; do
 		UPDATES=$(checkupdates | wc -l)
-		echo -e "CHECKUPDATES %{A:alacritty -e yay -Syu:}%{U$MAGENTA}%{F$MAGENTA} %{+u} \uf466 $UPDATES %{-u}%{U-}%{F-}%{A}"
+		echo -e "CHECKUPDATES %{A:alacritty -e sudo xbps-install -Suv:}%{U$MAGENTA}%{F$MAGENTA} %{+u} \uf466 $UPDATES %{-u}%{U-}%{F-}%{A}"
 		sleep 10;
 	done
 }
