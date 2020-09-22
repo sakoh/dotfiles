@@ -10,6 +10,10 @@ super + Return
 super + @space
 	rofi -show run -font "hack 18" 
 
+# window switcher
+super + alt + w
+	rofi -show window
+
 # make sxhkd reload its configuration files:
 super + Escape
 	pkill -USR1 -x sxhkd
@@ -150,3 +154,5 @@ super + ctrl + g
 super + alt + n
 	nitrogen
 
+super + alt + f
+	alacritty -e ranger
