@@ -12,7 +12,7 @@ FGCOLOR="#2e3440"
 
 PANEL_FIFO=/tmp/panel-fifo
 
-[ -e $PANEL_FIFO ] && rm $PANEL_FIFO 
+[ -e $PANEL_FIFO ] && rm $PANEL_FIFO
 mkfifo $PANEL_FIFO
 
 Desktops() {
@@ -21,7 +21,7 @@ Desktops() {
 
 		echo "DESKTOPS $DESKTOPS"
 		sleep 0.5
-	done 	
+	done
 }
 
 Clock() {
@@ -43,7 +43,7 @@ Battery() {
 		elif [[ $BAT -ge 90 ]]; then
 			ICON="\uf240"
 			BGCOLOR=$GREEN
-		elif [[ $BAT -ge 50 ]]; then	
+		elif [[ $BAT -ge 50 ]]; then
 			ICON="\uf241"
 			BGCOLOR=$GREEN
 		elif [[ $BAT -ge 25 ]]; then
@@ -54,9 +54,9 @@ Battery() {
 			BGCOLOR=$RED
 		fi
 
-		echo -e "BATTERY %{U$BGCOLOR}%{F$BGCOLOR} %{+u} $ICON $BATPERC %{-u}%{U-}%{F-} " 
+		echo -e "BATTERY %{U$BGCOLOR}%{F$BGCOLOR} %{+u} $ICON $BATPERC %{-u}%{U-}%{F-} "
 		sleep 2
-	done 
+	done
 }
 
 Sound() {
@@ -75,13 +75,13 @@ Sound() {
 				UGCOLOR=$YELLOW
 				ICON="\uf027"
 			fi
-		else	
+		else
 			UGCOLOR=$RED
-			OUTPUT="Muted"	
+			OUTPUT="Muted"
 			ICON="\uf026"
 		fi
-		
-		echo -e "SOUND %{A:alacritty -e alsamixer:}%{U$UGCOLOR}%{F$UGCOLOR} %{+u} $ICON $OUTPUT %{A} %{-u}%{U-}%{F-}"	
+
+		echo -e "SOUND %{A:alacritty -e alsamixer:}%{U$UGCOLOR}%{F$UGCOLOR} %{+u} $ICON $OUTPUT %{A} %{-u}%{U-}%{F-}"
 		sleep 1;
 	done
 }
@@ -89,13 +89,13 @@ Sound() {
 Wifi() {
 	while true; do
 		STATE=$(connmanctl state | awk 'NR == 1 {print $3}')
-		BGCOLOR=$MAGENTA	
+		BGCOLOR=$MAGENTA
 		if [[ $STATE == "online" ]]; then
-			echo "WIFI %{A:connman-gtk:}%{U$BGCOLOR}%{F$BGCOLOR} %{+u}  $(connmanctl services | awk 'NR == 1 {print $2}') %{-u}%{U-}%{F-}%{A}" 
+			echo "WIFI %{A:connman-gtk:}%{U$BGCOLOR}%{F$BGCOLOR} %{+u}  %{-u}%{U-}%{F-}%{A}"
 		else
-			echo "WIFI %{A:connman-gtk:}%{U$BGCOLOR}%{F$BGCOLOR} %{+u} 睊Not Connected %{-u} %{U-}%{F-}%{A}" 
+			echo "WIFI %{A:connman-gtk:}%{U$BGCOLOR}%{F$BGCOLOR} %{+u} 睊Not Connected %{-u} %{U-}%{F-}%{A}"
 		fi
-	
+
 		sleep 3;
 	done
 }
@@ -117,11 +117,23 @@ Memory() {
 
 Temperature() {
 	while true; do
-		TEMP=$(sensors | awk 'NR ==10 {print $2}')
+		TEMP=$(sensors | awk '/temp1: / {print $2 }')
 		OUTPUT=$(python $HOME/.config/lemonbar/temperature.py $TEMP)
-		
+
 		echo -e "TEMPERATURE $OUTPUT"
 		sleep 0.5;
+	done
+}
+
+Storage() {
+	while true; do
+		ICON="\uf1c0"
+		AVAILABLE=$(df -h | awk '/nvme0n1p2/ {print $4}' | sed 's/G//g')
+		SIZE=$(df -h | awk '/nvme0n1p2/ {print $2}')
+
+		echo -e "STORAGE %{U$MAGENTA}%{F$MAGENTA} %{+u} $ICON $AVAILABLE/$SIZE %{-u}%{U
+    -}%{F-}"
+		sleep 2;
 	done
 }
 
@@ -133,6 +145,7 @@ Battery > $PANEL_FIFO &
 CheckUpdates > $PANEL_FIFO &
 Memory > $PANEL_FIFO &
 Temperature > $PANEL_FIFO &
+Storage > $PANEL_FIFO &
 
 while read -r line; do
 	case $line in
@@ -161,7 +174,9 @@ while read -r line; do
 		TEMPERATURE*)
 			fn_temperature="${line#TEMPERATURE }"
 			;;
+		STORAGE*)
+			fn_storage="${line#STORAGE }"
 	esac
-	printf "%s\n" "%{l}$fn_desktop  %{r}$fn_sound $fn_wifi $fn_temperature $fn_memory $fn_checkupdates $fn_clock $fn_battery" 
-done < $PANEL_FIFO 
+	printf "%s\n" "%{l}$fn_desktop  %{r}$fn_sound $fn_wifi $fn_temperature $fn_storage $fn_memory $fn_checkupdates $fn_clock $fn_battery"
+done < $PANEL_FIFO
 
