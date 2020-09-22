@@ -25,14 +25,14 @@
     lightfg:                     rgba ( 88, 104, 117, 100 % );
     selected-normal-background:  rgba (235, 203, 139, 1);
     border-color:                @background;
-    spacing:                     2;
+    spacing:                     4;
     separatorcolor:              rgba (235, 203, 139, 1);
     urgent-background:           rgba ( 0, 0, 208, 0 % );
-    selected-urgent-background:  rgba (235, 203, 139, 1);
+    selected-urgent-background:  rgba (16, 23, 38, 1);
     alternate-urgent-foreground: @urgent-foreground;
     background-color:            rgba ( 0, 0, 0, 0 % );
     alternate-active-foreground: @active-foreground;
-    active-background:           rgba (235, 203, 139, 1);
+    active-background:           rgba (163, 190, 140, 1);
     selected-active-background:  rgba (235, 203, 139, 1);
 }
 #window {
