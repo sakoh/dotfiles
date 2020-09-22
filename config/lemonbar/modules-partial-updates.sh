@@ -26,7 +26,7 @@ Desktops() {
 
 Clock() {
 	while true; do
-		TIME=$(date "+%H:%M:%S")
+		TIME=$(date -u "+%H:%M:%S")
 		echo -e "CLOCK %{U$CYAN}%{F$CYAN} %{+u} \uf017 ${TIME} %{-u}%{U-}%{F-}"
 		sleep 1;
 	done
