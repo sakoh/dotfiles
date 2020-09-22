@@ -131,7 +131,7 @@ Storage() {
 		AVAILABLE=$(df -h | awk '/nvme0n1p2/ {print $4}' | sed 's/G//g')
 		SIZE=$(df -h | awk '/nvme0n1p2/ {print $2}')
 
-		echo -e "STORAGE %{U$MAGENTA}%{F$MAGENTA} %{+u} $ICON $AVAILABLE/$SIZE %{-u}%{U
+		echo -e "STORAGE %{U$GREEN}%{F$GREEN} %{+u} $ICON $AVAILABLE/$SIZE %{-u}%{U
     -}%{F-}"
 		sleep 2;
 	done
