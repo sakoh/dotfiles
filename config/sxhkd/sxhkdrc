@@ -12,7 +12,8 @@ super + @space
 
 # window switcher
 super + alt + w
-	rofi -show window
+	rofi -show window -font "hack 18" 
+
 
 # make sxhkd reload its configuration files:
 super + Escape
