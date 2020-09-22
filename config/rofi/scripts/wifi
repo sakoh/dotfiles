@@ -1,8 +1,5 @@
 #!/bin/sh
 
-SELECTED=$(connmanctl services | rofi -dmenu -p 'wifi' -font 'hack 18')
-NETWORK=$(echo $SELECTED | awk '{print $NF}')
+SELECTED=$(connmanctl services | rofi -dmenu -p 'wifi' -font 'hack 18' | awk '{print $NF}')
 
-connmanctl connect $NETWORK
-
-
+connmanctl connect $SELECTED
