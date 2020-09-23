@@ -14,6 +14,9 @@ super + @space
 super + alt + w
 	rofi -show window -font "hack 18" 
 
+# power menu
+super + alt + p
+	$HOME/.config/rofi/scripts/power
 
 # make sxhkd reload its configuration files:
 super + Escape

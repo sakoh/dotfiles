@@ -1,0 +1,6 @@
+#!/bin/sh
+
+SELECTED=$(echo "poweroff\nreboot" | rofi -dmenu -p 'power' -font 'hack 18')
+
+sudo $SELECTED
+

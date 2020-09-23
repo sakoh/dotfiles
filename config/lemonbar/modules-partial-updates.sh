@@ -54,7 +54,7 @@ Battery() {
 			BGCOLOR=$RED
 		fi
 
-		echo -e "BATTERY %{U$BGCOLOR}%{F$BGCOLOR} %{+u} $ICON $BATPERC %{-u}%{U-}%{F-} "
+		echo -e "BATTERY %{A:$HOME/.config/rofi/scripts/power:}%{U$BGCOLOR}%{F$BGCOLOR} %{+u} $ICON $BATPERC %{-u}%{U-}%{F-}%{A-} "
 		sleep 2
 	done
 }
