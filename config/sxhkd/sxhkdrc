@@ -147,7 +147,7 @@ super + alt + d
 	flatpak run com.discordapp.Discord
 
 super + alt + m
-	spotify
+	LD_PRELOAD=$HOME/spotifywm/spotifywm.so spotify
 
 super + alt + g
 	steam
