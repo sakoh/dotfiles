@@ -1,7 +1,7 @@
 import sys
 import re
 
-cyan = "#88c0d0"
+blue = "#81a1c1"
 yellow = "#ebcb8b"
 red = "#bf616a"
 
@@ -23,7 +23,7 @@ def make_temp_dict(temp):
 	else:
 		return {
 			"icon": "\uf2cb",
-			"color": cyan
+			"color": blue
 		}
 
 temp_dict = make_temp_dict(temp)
