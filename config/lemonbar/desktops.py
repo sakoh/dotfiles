@@ -4,7 +4,7 @@ from utils import get_output_from_shell
 
 # colors
 red = "#bf616a"
-blue = "#81a1c1"
+blue = "#88c0d0"
 hover_color = "#2e3440"
 
 def desktop_has_nodes(desktop):

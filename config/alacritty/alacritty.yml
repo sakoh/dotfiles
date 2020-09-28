@@ -20,7 +20,7 @@ colors:
     red: '#bf616a'
     green: '#a3be8c'
     yellow: '#ebcb8b'
-    blue: '#81a1c1'
+    blue: '#88c0d0'
     magenta: '#b48ead'
     cyan: '#88c0d0'
     white: '#e5e9f0'
@@ -29,13 +29,13 @@ colors:
     red: '#bf616a'
     green: '#a3be8c'
     yellow: '#ebcb8b'
-    blue: '#81a1c1'
+    blue: '#88c0d0'
     magenta: '#b48ead'
     cyan: '#8fbcbb'
     white: '#eceff4'
 
 font:
-  regular: 
+  regular:
 	family: "Hack"
 
 window:

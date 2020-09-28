@@ -1,7 +1,7 @@
 import sys
 import re
 
-blue = "#81a1c1"
+blue = "#88c0d0"
 yellow = "#ebcb8b"
 red = "#bf616a"
 

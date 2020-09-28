@@ -11,7 +11,7 @@
     alternate-normal-background: rgba ( 0, 0, 0, 0 % );
     red:                         rgba (191, 97, 106, 1);
     selected-urgent-foreground:  rgba ( 2, 20, 63, 100 % );
-    blue:                        rgba (129, 161, 193, 1);
+    blue:                        rgba (136, 192, 208, 1);
     urgent-foreground:           rgba ( 255, 129, 255, 100 % );
     yellow:			 rgba (235, 203, 139, 1);
     alternate-urgent-background: rgba ( 0, 0, 0, 0 % );
