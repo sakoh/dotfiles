@@ -28,4 +28,4 @@ def make_temp_dict(temp):
 
 temp_dict = make_temp_dict(temp)
 
-print(f"%{{A:alacritty -e sensors:}}%{{U{temp_dict['color']}}}%{{F{temp_dict['color']}}} %{{+u}} {temp_dict['icon']} {temp} %{{-u}}%{{U-}}%{{F-}}%{{A}}")
+print(f"%{{A:alacritty --hold -e sensors:}}%{{U{temp_dict['color']}}}%{{F{temp_dict['color']}}} %{{+u}} {temp_dict['icon']} {temp} %{{-u}}%{{U-}}%{{F-}}%{{A}}")
