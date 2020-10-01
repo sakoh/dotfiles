@@ -2,4 +2,8 @@
 
 SELECTED=$(connmanctl services | rofi -dmenu -p 'wifi' -font 'hack 18' | awk '{print $NF}')
 
-connmanctl connect $SELECTED
+if [ -z ${SELECTED} ]; then
+	exit
+fi
+
+alacritty --hold -e connmanctl connect $SELECTED
