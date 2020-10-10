@@ -146,6 +146,9 @@ super + ctrl + i
 super + alt + d
 	flatpak run com.discordapp.Discord
 
+super + alt + e
+	element-desktop
+
 super + alt + m
 	LD_PRELOAD=$HOME/spotifywm/spotifywm.so spotify
 
@@ -160,3 +163,6 @@ super + alt + n
 
 super + alt + f
 	alacritty -e ranger
+
+super + alt + a
+	gimp

@@ -30,7 +30,7 @@ all_desktops.pop()
 all_desktops[0] = all_desktops[0].replace("b'","")
 
 desktops = []
-icons = [ "\uf120", "\uf57d", "\uf086", "\uf11b", "\uf001", ]
+icons = [ "\uf120", "\uf57d", "\uf086", "\uf11b", "\uf001", "\uf53f" ]
 
 for index, item in enumerate(all_desktops):
 	current_desktop_query = "bspc query -D -d"
