@@ -7,6 +7,8 @@ Plug 'davidhalter/jedi-vim'
 
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
+Plug 'vim-airline/vim-airline'
+
 Plug 'vim-airline/vim-airline-themes'
 
 Plug 'scrooloose/nerdcommenter'
