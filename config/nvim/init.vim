@@ -45,4 +45,7 @@ let g:airline_theme='nord'
 
 colorscheme nord
 
-nnoremap <silent> <C-k><C-B> :NERDTreeToggle<CR>
+nnoremap <silent> <C-T> :NERDTreeToggle<CR>
+
+let g:NERDTreeDirArrowExpandable = ''
+let g:NERDTreeDirArrowCollapsible = ''
