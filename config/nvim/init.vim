@@ -1,6 +1,5 @@
-set runtimepath^=~/.vim runtimepath+=~/.vim/after
-let &packpath=&runtimepath
-source ~/.vimrc
+syntax on
+set number
 
 call plug#begin('~/.local/share/nvim/plugged')
 
@@ -17,6 +16,18 @@ Plug 'cocopon/pgmnt.vim'
 Plug 'cocopon/iceberg.vim'
 
 Plug 'arcticicestudio/nord-vim'
+
+"QML highlighting"
+Plug 'crucerucalin/qml.vim'
+
+"NerTree"
+Plug 'preservim/nerdtree'
+
+Plug 'mg979/vim-visual-multi', {'branch': 'master'}
+
+Plug 'vimwiki/vimwiki'
+
+Plug 'tools-life/taskwiki'
 
 call plug#end()
 
