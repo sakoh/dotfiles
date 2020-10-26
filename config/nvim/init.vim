@@ -33,6 +33,8 @@ Plug 'tools-life/taskwiki'
 
 Plug 'tpope/vim-fugitive'
 
+Plug 'ryanoasis/vim-devicons'
+
 call plug#end()
 
 let g:deoplete#enable_at_startup = 1
@@ -41,3 +43,4 @@ let g:airline_theme='nord'
 
 colorscheme nord
 
+nnoremap <silent> <C-k><C-B> :NERDTreeToggle<CR>
