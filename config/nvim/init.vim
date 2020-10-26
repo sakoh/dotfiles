@@ -31,6 +31,8 @@ Plug 'vimwiki/vimwiki'
 
 Plug 'tools-life/taskwiki'
 
+Plug 'tpope/vim-fugitive'
+
 call plug#end()
 
 let g:deoplete#enable_at_startup = 1
