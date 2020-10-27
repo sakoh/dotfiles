@@ -2,9 +2,13 @@ set nocompatible
 filetype plugin on
 syntax on
 set number
-
+  
+source $HOME/.config/nvim/plugin-config/coc.vim
+  
+source $HOME/.config/nvim/plugin-config/airline.vim
+  
 call plug#begin('~/.local/share/nvim/plugged')
-
+ 
 Plug 'davidhalter/jedi-vim'
 
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -37,11 +41,11 @@ Plug 'tpope/vim-fugitive'
 
 Plug 'ryanoasis/vim-devicons'
 
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
 call plug#end()
 
 let g:deoplete#enable_at_startup = 1
-
-let g:airline_theme='nord'
 
 colorscheme nord
 
