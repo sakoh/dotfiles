@@ -4,6 +4,7 @@ import re
 blue = "#88c0d0"
 yellow = "#ebcb8b"
 red = "#bf616a"
+fgcolor = "#2e3440"
 
 temp = sys.argv[1]
 
@@ -28,4 +29,4 @@ def make_temp_dict(temp):
 
 temp_dict = make_temp_dict(temp)
 
-print(f"%{{A:alacritty --hold -e sensors:}}%{{U{temp_dict['color']}}}%{{F{temp_dict['color']}}} %{{+u}} {temp_dict['icon']} {temp} %{{-u}}%{{U-}}%{{F-}}%{{A}}")
+print(f"%{{A:alacritty --hold -e sensors:}}%{{B{temp_dict['color']}}}%{{F{fgcolor}}} {temp_dict['icon']} {temp} %{{B-}}%{{F-}}%{{A}}")

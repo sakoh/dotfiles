@@ -5,9 +5,9 @@ RED="#bf616a"
 GREEN="#a3be8c"
 YELLOW="#ebcb8b"
 BLUE="#81a1c1"
-MAGENTA="#b48ead"
+BLUE="#81a1c1"
 CYAN="#88c0d0"
-
+FROSTGREEN="#8fbcbb"
 FGCOLOR="#2e3440"
 
 PANEL_FIFO=/tmp/panel-fifo
@@ -27,7 +27,7 @@ Desktops() {
 Clock() {
 	while true; do
 		TIME=$(date -u "+%H:%M:%S")
-		echo -e "CLOCK %{U$CYAN}%{F$CYAN} %{+u} \uf017 ${TIME} %{-u}%{U-}%{F-}"
+		echo -e "CLOCK %{B$BLUE}%{F$FGCOLOR} \uf017 ${TIME} %{B-}%{F-}"
 		sleep 1;
 	done
 }
@@ -54,7 +54,7 @@ Battery() {
 			BGCOLOR=$RED
 		fi
 
-		echo -e "BATTERY %{A:$HOME/.config/rofi/scripts/power:}%{U$BGCOLOR}%{F$BGCOLOR} %{+u} $ICON $BATPERC %{-u}%{U-}%{F-}%{A-} "
+		echo -e "BATTERY %{A:$HOME/.config/rofi/scripts/power:}%{B$BGCOLOR}%{F$FGCOLOR} $ICON $BATPERC %{B-}%{F-}%{A-} "
 		sleep 2
 	done
 }
@@ -66,22 +66,22 @@ Sound() {
 		if [[ ! -z $NOTMUTED ]] ; then
 			OUTPUT="$VOL%"
 			if [[ $VOL -ge 50 ]]; then
-				UGCOLOR=$GREEN
+				BGCOLOR=$GREEN
 				ICON="\uf028"
 			elif [[$VOL -le 0 ]]; then
-				UGCOLOR=$RED
+				BGCOLOR=$RED
 				ICON="\uf026"
 			else
-				UGCOLOR=$YELLOW
+				BGCOLOR=$YELLOW
 				ICON="\uf027"
 			fi
 		else
-			UGCOLOR=$RED
+			BGCOLOR=$RED
 			OUTPUT="Muted"
 			ICON="\uf026"
 		fi
 
-		echo -e "SOUND %{A:alacritty -e alsamixer:}%{U$UGCOLOR}%{F$UGCOLOR} %{+u} $ICON $OUTPUT %{A} %{-u}%{U-}%{F-}"
+		echo -e "SOUND %{A:alacritty -e alsamixer:}%{B$BGCOLOR}%{F$FGCOLOR} $ICON $OUTPUT %{A} %{B-}%{F-}"
 		sleep 1;
 	done
 }
@@ -89,11 +89,11 @@ Sound() {
 Wifi() {
 	while true; do
 		STATE=$(connmanctl state | awk 'NR == 1 {print $3}')
-		BGCOLOR=$MAGENTA
+		BGCOLOR=$BLUE
 		if [[ $STATE == "online" ]]; then
-			echo "WIFI %{A:$HOME/.config/rofi/scripts/wifi:}%{U$BGCOLOR}%{F$BGCOLOR} %{+u}  %{-u}%{U-}%{F-}%{A}"
+			echo "WIFI %{A:$HOME/.config/rofi/scripts/wifi:}%{B$BGCOLOR}%{F$FGCOLOR}  Connected %{F-}%{B-}%{A}"
 		else
-			echo "WIFI %{A:$HOME/.config/rofi/scripts/wifi:}%{U$BGCOLOR}%{F$BGCOLOR} %{+u} 睊Not Connected %{-u} %{U-}%{F-}%{A}"
+			echo "WIFI %{A:$HOME/.config/rofi/scripts/wifi:}%{B$BGCOLOR}%{F$FGCOLOR} 睊Not Connected %{B-}%{F-}%{A}"
 		fi
 
 		sleep 3;
@@ -103,14 +103,14 @@ Wifi() {
 CheckUpdates() {
 	while true; do
 		UPDATES=$(checkupdates | wc -l)
-		echo -e "CHECKUPDATES %{A:alacritty -e sudo xbps-install -Suv:}%{U$MAGENTA}%{F$MAGENTA} %{+u} \uf466 $UPDATES %{-u}%{U-}%{F-}%{A}"
+		echo -e "CHECKUPDATES %{A:alacritty -e sudo xbps-install -Suv:}%{B$CYAN}%{F$FGCOLOR} \uf466 $UPDATES %{B-}%{F-}%{A}"
 		sleep 10;
 	done
 }
 
 Memory() {
 	while true; do
-		echo -e "MEMORY %{U$YELLOW}%{F$YELLOW} %{+u} \uf538 $(free -h | awk '/^Mem:/ {print $3 "/" $2}') %{-u}%{U-}%{F-}"
+		echo -e "MEMORY %{B$FROSTGREEN}%{F$FGCOLOR} \uf538 $(free -h | awk '/^Mem:/ {print $3 "/" $2}') %{B-}%{F-}"
 		sleep 1;
 	done
 }
@@ -131,8 +131,7 @@ Storage() {
 		AVAILABLE=$(df -h | awk '/nvme0n1p2/ {print $4}' | sed 's/G//g')
 		SIZE=$(df -h | awk '/nvme0n1p2/ {print $2}')
 
-		echo -e "STORAGE %{U$GREEN}%{F$GREEN} %{+u} $ICON $AVAILABLE/$SIZE %{-u}%{U
-    -}%{F-}"
+		echo -e "STORAGE %{B$GREEN}%{F$FGCOLOR} $ICON $AVAILABLE/$SIZE %{B-}%{F-}"
 		sleep 2;
 	done
 }
@@ -177,6 +176,6 @@ while read -r line; do
 		STORAGE*)
 			fn_storage="${line#STORAGE }"
 	esac
-	printf "%s\n" "%{l}$fn_desktop  %{r}$fn_sound $fn_wifi $fn_temperature $fn_storage $fn_memory $fn_checkupdates $fn_clock $fn_battery"
+	printf "%s\n" "%{l}$fn_desktop  %{r}$fn_sound$fn_wifi$fn_temperature$fn_storage$fn_memory$fn_checkupdates$fn_clock$fn_battery"
 done < $PANEL_FIFO
 
