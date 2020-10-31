@@ -117,9 +117,9 @@ source ~/powerlevel10k/powerlevel10k.zsh-theme
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-typeset -g POWERLEVEL9K_DIR_BACKGROUND=116
-typeset -g POWERLEVEL9K_DIR_FOREGROUND=008
+typeset -g POWERLEVEL9K_DIR_BACKGROUND=014
+typeset -g POWERLEVEL9K_DIR_FOREGROUND=238
 
-typeset -g POWERLEVEL9K_DIR_SHORTENED_FOREGROUND=008
-typeset -g POWERLEVEL9K_DIR_ANCHOR_FOREGROUND=008
+typeset -g POWERLEVEL9K_DIR_SHORTENED_FOREGROUND=238
+typeset -g POWERLEVEL9K_DIR_ANCHOR_FOREGROUND=238
 typeset -g POWERLEVEL9K_DIR_ANCHOR_BOLD=false
