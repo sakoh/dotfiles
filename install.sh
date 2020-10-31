@@ -9,5 +9,4 @@ cp xprofile $HOME/.xprofile
 cp after-play $HOME/.after-play
 cp before-play $HOME/.before-play
 cp bashrc $HOME/.bashrc
-cp vimrc $HOME/.vimrc
-
+cp zshrc $HOME/.zshrc
