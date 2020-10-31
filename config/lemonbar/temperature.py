@@ -4,7 +4,7 @@ import re
 blue = "#88c0d0"
 yellow = "#ebcb8b"
 red = "#bf616a"
-fgcolor = "#2e3440"
+fgcolor = "#101726"
 
 temp = sys.argv[1]
 
