@@ -8,7 +8,7 @@ BLUE="#81a1c1"
 BLUE="#81a1c1"
 CYAN="#88c0d0"
 FROSTGREEN="#8fbcbb"
-FGCOLOR="#101726"
+FGCOLOR="#2e3440"
 
 PANEL_FIFO=/tmp/panel-fifo
 
