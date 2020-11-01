@@ -2,16 +2,12 @@ set nocompatible
 filetype plugin on
 syntax on
 set number
-  
-source $HOME/.config/nvim/plugin-config/coc.vim
-  
-source $HOME/.config/nvim/plugin-config/airline.vim
-  
-call plug#begin('~/.local/share/nvim/plugged')
- 
-Plug 'davidhalter/jedi-vim'
 
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+source $HOME/.config/nvim/plugin-config/airline.vim
+
+call plug#begin('~/.local/share/nvim/plugged')
+
+Plug 'davidhalter/jedi-vim'
 
 Plug 'vim-airline/vim-airline'
 
@@ -30,6 +26,8 @@ Plug 'crucerucalin/qml.vim'
 
 "NerTree"
 Plug 'preservim/nerdtree'
+
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 
@@ -53,3 +51,5 @@ nnoremap <silent> <C-T> :NERDTreeToggle<CR>
 
 let g:NERDTreeDirArrowExpandable = ''
 let g:NERDTreeDirArrowCollapsible = ''
+
+autocmd BufWritePre * %s/\s\+$//e
