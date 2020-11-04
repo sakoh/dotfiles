@@ -19,7 +19,7 @@ def add_action_handler(markup, desktop):
 
 def render_desktop(desktop, icon):
 	color = red if desktop_has_nodes(desktop) else blue
-	return f"%{{U{color}}}%{{F{color}}}%{{+u}}  {icon}  %{{-u}}%{{U-}}%{{F-}}"
+	return f"%{{F{color}}}  {icon}  %{{F-}}"
 
 #pdb.set_trace()
 all_desktops_query = "bspc query -D"
