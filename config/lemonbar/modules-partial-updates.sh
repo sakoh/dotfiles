@@ -100,13 +100,13 @@ Wifi() {
 	done
 }
 
-CheckUpdates() {
-	while true; do
-		UPDATES=$(checkupdates | wc -l)
-		echo -e "CHECKUPDATES %{A:alacritty -e sudo xbps-install -Suv:}%{B$CYAN}%{F$FGCOLOR} \uf466 $UPDATES %{B-}%{F-}%{A}"
-		sleep 10;
-	done
-}
+#CheckUpdates() {
+	#while true; do
+		#UPDATES=$(checkupdates | wc -l)
+		#echo -e "CHECKUPDATES %{A:alacritty -e sudo xbps-install -Suv:}%{B$CYAN}%{F$FGCOLOR} \uf466 $UPDATES %{B-}%{F-}%{A}"
+		#sleep 10;
+	#done
+#}
 
 Memory() {
 	while true; do
@@ -141,7 +141,7 @@ Sound > $PANEL_FIFO &
 Wifi > $PANEL_FIFO &
 Clock > $PANEL_FIFO &
 Battery > $PANEL_FIFO &
-CheckUpdates > $PANEL_FIFO &
+#CheckUpdates > $PANEL_FIFO &
 Memory > $PANEL_FIFO &
 Temperature > $PANEL_FIFO &
 Storage > $PANEL_FIFO &
@@ -164,9 +164,9 @@ while read -r line; do
 		BATTERY*)
 			fn_battery="${line#BATTERY }"
 			;;
-		CHECKUPDATES*)
-			fn_checkupdates="${line#CHECKUPDATES }"
-			;;
+		#CHECKUPDATES*)
+			#fn_checkupdates="${line#CHECKUPDATES }"
+			#;;
 		MEMORY*)
 			fn_memory="${line#MEMORY }"
 			;;
@@ -176,6 +176,6 @@ while read -r line; do
 		STORAGE*)
 			fn_storage="${line#STORAGE }"
 	esac
-	printf "%s\n" "%{l}$fn_desktop  %{r}$fn_sound$fn_wifi$fn_temperature$fn_storage$fn_memory$fn_checkupdates$fn_clock$fn_battery"
+	printf "%s\n" "%{l}$fn_desktop  %{r}$fn_sound$fn_wifi$fn_temperature$fn_storage$fn_memory$fn_clock$fn_battery"
 done < $PANEL_FIFO
 
