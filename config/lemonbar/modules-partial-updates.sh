@@ -37,7 +37,7 @@ Battery() {
         	BATPERC="$(acpi | awk '/Battery 0:/ {print $4}' | sed 's/,//g')"
 		BAT="$(acpi | awk '/Battery 0:/ {print $4}' | sed 's/%,//g')"
 
-		if [[ "$(acpi | awk '{print $3}')" == 'Charging,' ]]; then
+		if [[ "$(acpi | awk '/Battery 0:/ {print $3}')" == 'Charging,' ]]; then
         		ICON="\uf5e7"
 			BGCOLOR=$GREEN
 		elif [[ $BAT -ge 90 ]]; then
