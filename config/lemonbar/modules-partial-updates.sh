@@ -34,8 +34,8 @@ Clock() {
 
 Battery() {
 	while true; do
-        	BATPERC="$(acpi | awk '{print $4}' | sed 's/,//g')"
-		BAT="$(acpi | awk '{print $4}' | sed 's/%,//g')"
+        	BATPERC="$(acpi | awk '/Battery 0:/ {print $4}' | sed 's/,//g')"
+		BAT="$(acpi | awk '/Battery 0:/ {print $4}' | sed 's/%,//g')"
 
 		if [[ "$(acpi | awk '{print $3}')" == 'Charging,' ]]; then
         		ICON="\uf5e7"
