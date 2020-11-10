@@ -117,7 +117,7 @@ Memory() {
 
 Temperature() {
 	while true; do
-		TEMP=$(sensors | awk '/temp1: / {print $2 }')
+		TEMP=$(sensors | awk '/temp1: / {print $2 }' | awk 'NR==2 {print}')
 		OUTPUT=$(python $HOME/.config/lemonbar/temperature.py $TEMP)
 
 		echo -e "TEMPERATURE $OUTPUT"
