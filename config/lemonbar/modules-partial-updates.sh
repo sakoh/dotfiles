@@ -8,7 +8,6 @@ BLUE="#81a1c1"
 BLUE="#81a1c1"
 CYAN="#88c0d0"
 FROSTGREEN="#8fbcbb"
-FGCOLOR="#101726"
 
 PANEL_FIFO=/tmp/panel-fifo
 
@@ -27,7 +26,7 @@ Desktops() {
 Clock() {
 	while true; do
 		TIME=$(date -u "+%H:%M:%S")
-		echo -e "CLOCK %{B$BLUE}%{F$FGCOLOR} \uf017 ${TIME} %{B-}%{F-}"
+		echo -e "CLOCK %{F$BLUE} \uf017 ${TIME} %{F-}"
 		sleep 1;
 	done
 }
@@ -39,22 +38,22 @@ Battery() {
 
 		if [[ "$(acpi | awk '/Battery 0:/ {print $3}')" == 'Charging,' ]]; then
         		ICON="\uf5e7"
-			BGCOLOR=$GREEN
+			FGCOLOR=$GREEN
 		elif [[ $BAT -ge 90 ]]; then
 			ICON="\uf240"
-			BGCOLOR=$GREEN
+			FGCOLOR=$GREEN
 		elif [[ $BAT -ge 50 ]]; then
 			ICON="\uf241"
-			BGCOLOR=$GREEN
+			FGCOLOR=$GREEN
 		elif [[ $BAT -ge 25 ]]; then
 			ICON="\uf242"
-			BGCOLOR=$YELLOW
+			FGCOLOR=$YELLOW
 		else
 			ICON="\uf244"
-			BGCOLOR=$RED
+			FGCOLOR=$RED
 		fi
 
-		echo -e "BATTERY %{A:$HOME/.config/rofi/scripts/power:}%{B$BGCOLOR}%{F$FGCOLOR} $ICON $BATPERC %{B-}%{F-}%{A-} "
+		echo -e "BATTERY %{A:$HOME/.config/rofi/scripts/power:}%{F$FGCOLOR} $ICON $BATPERC %{F-}%{A-} "
 		sleep 2
 	done
 }
@@ -66,22 +65,22 @@ Sound() {
 		if [[ ! -z $NOTMUTED ]] ; then
 			OUTPUT="$VOL%"
 			if [[ $VOL -ge 50 ]]; then
-				BGCOLOR=$GREEN
+				FGCOLOR=$GREEN
 				ICON="\uf028"
 			elif [[$VOL -le 0 ]]; then
-				BGCOLOR=$RED
+				FGCOLOR=$RED
 				ICON="\uf026"
 			else
-				BGCOLOR=$YELLOW
+				FGCOLOR=$YELLOW
 				ICON="\uf027"
 			fi
 		else
-			BGCOLOR=$RED
+			FGCOLOR=$RED
 			OUTPUT="Muted"
 			ICON="\uf026"
 		fi
 
-		echo -e "SOUND %{A:alacritty -e alsamixer:}%{B$BGCOLOR}%{F$FGCOLOR} $ICON $OUTPUT %{A} %{B-}%{F-}"
+		echo -e "SOUND %{A:alacritty -e alsamixer:}%{F$FGCOLOR} $ICON $OUTPUT %{A}%{F-}"
 		sleep 1;
 	done
 }
@@ -89,11 +88,11 @@ Sound() {
 Wifi() {
 	while true; do
 		STATE=$(connmanctl state | awk 'NR == 1 {print $3}')
-		BGCOLOR=$BLUE
+		FGCOLOR=$BLUE
 		if [[ $STATE == "online" ]]; then
-			echo "WIFI %{A:$HOME/.config/rofi/scripts/wifi:}%{B$BGCOLOR}%{F$FGCOLOR}  Connected %{F-}%{B-}%{A}"
+			echo "WIFI %{A:$HOME/.config/rofi/scripts/wifi:}%{F$FGCOLOR}  Connected %{F-}%{A}"
 		else
-			echo "WIFI %{A:$HOME/.config/rofi/scripts/wifi:}%{B$BGCOLOR}%{F$FGCOLOR} 睊Not Connected %{B-}%{F-}%{A}"
+			echo "WIFI %{A:$HOME/.config/rofi/scripts/wifi:}%{F$FGCOLOR} 睊Not Connected %{F-}%{A}"
 		fi
 
 		sleep 3;
@@ -110,7 +109,7 @@ Wifi() {
 
 Memory() {
 	while true; do
-		echo -e "MEMORY %{B$FROSTGREEN}%{F$FGCOLOR} \uf538 $(free -h | awk '/^Mem:/ {print $3 "/" $2}') %{B-}%{F-}"
+		echo -e "MEMORY %{F$FROSTGREEN} \uf538 $(free -h | awk '/^Mem:/ {print $3 "/" $2}') %{F-}"
 		sleep 1;
 	done
 }
@@ -131,7 +130,7 @@ Storage() {
 		AVAILABLE=$(df -h | awk '/nvme0n1p2/ {print $4}' | sed 's/G//g')
 		SIZE=$(df -h | awk '/nvme0n1p2/ {print $2}')
 
-		echo -e "STORAGE %{B$GREEN}%{F$FGCOLOR} $ICON $AVAILABLE/$SIZE %{B-}%{F-}"
+		echo -e "STORAGE %{F$GREEN} $ICON $AVAILABLE/$SIZE %{F-}"
 		sleep 2;
 	done
 }
@@ -176,6 +175,6 @@ while read -r line; do
 		STORAGE*)
 			fn_storage="${line#STORAGE }"
 	esac
-	printf "%s\n" "%{l}$fn_desktop  %{r}$fn_sound$fn_wifi$fn_temperature$fn_storage$fn_memory$fn_clock$fn_battery"
+	printf "%s\n" "%{l}$fn_desktop  %{r}$fn_sound $fn_wifi $fn_temperature $fn_storage $fn_memory $fn_clock $fn_battery"
 done < $PANEL_FIFO
 
