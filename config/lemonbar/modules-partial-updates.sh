@@ -4,8 +4,7 @@
 RED="#bf616a"
 GREEN="#a3be8c"
 YELLOW="#ebcb8b"
-BLUE="#81a1c1"
-BLUE="#81a1c1"
+MAGENTA="#b48ead"
 CYAN="#88c0d0"
 FROSTGREEN="#8fbcbb"
 
@@ -26,7 +25,7 @@ Desktops() {
 Clock() {
 	while true; do
 		TIME=$(date -u "+%H:%M:%S")
-		echo -e "CLOCK %{F$BLUE} \uf017 ${TIME} %{F-}"
+		echo -e "CLOCK %{F$MAGENTA} \uf017 ${TIME} %{F-}"
 		sleep 1;
 	done
 }
@@ -88,7 +87,7 @@ Sound() {
 Wifi() {
 	while true; do
 		STATE=$(connmanctl state | awk 'NR == 1 {print $3}')
-		FGCOLOR=$BLUE
+		FGCOLOR=$MAGENTA
 		if [[ $STATE == "online" ]]; then
 			echo "WIFI %{A:$HOME/.config/rofi/scripts/wifi:}%{F$FGCOLOR}  Connected %{F-}%{A}"
 		else

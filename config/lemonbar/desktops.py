@@ -4,7 +4,7 @@ from utils import get_output_from_shell
 
 # colors
 red = "#bf616a"
-blue = "#88c0d0"
+frostgreen="#8fbcbb"
 hover_color = "#2e3440"
 
 def desktop_has_nodes(desktop):
@@ -18,7 +18,7 @@ def add_action_handler(markup, desktop):
 	return f"%{{A:bspc desktop -f {desktop}:}}{markup}%{{A}}"
 
 def render_desktop(desktop, icon):
-	color = red if desktop_has_nodes(desktop) else blue
+	color = red if desktop_has_nodes(desktop) else frostgreen
 	return f"%{{F{color}}}  {icon}  %{{F-}}"
 
 #pdb.set_trace()
