@@ -13,6 +13,13 @@ PANEL_FIFO=/tmp/panel-fifo
 [ -e $PANEL_FIFO ] && rm $PANEL_FIFO
 mkfifo $PANEL_FIFO
 
+ActiveWindow() {
+	while true; do
+		echo "ACTIVEWINDOW $(xdotool getwindowfocus getwindowname)"
+		sleep 1
+	done
+}
+
 Desktops() {
 	while true; do
 		DESKTOPS=$(python $HOME/.config/lemonbar/desktops.py)
@@ -143,6 +150,7 @@ Battery > $PANEL_FIFO &
 Memory > $PANEL_FIFO &
 Temperature > $PANEL_FIFO &
 Storage > $PANEL_FIFO &
+ActiveWindow > $PANEL_FIFO &
 
 while read -r line; do
 	case $line in
@@ -173,7 +181,11 @@ while read -r line; do
 			;;
 		STORAGE*)
 			fn_storage="${line#STORAGE }"
+			;;
+		ACTIVEWINDOW*)
+			fn_active_window="${line#ACTIVEWINDOW}"
+			;;
 	esac
-	printf "%s\n" "%{l}$fn_desktop  %{r}$fn_sound $fn_wifi $fn_temperature $fn_storage $fn_memory $fn_clock $fn_battery"
+	printf "%s\n" "%{l}$fn_desktop $fn_active_window %{r}$fn_sound $fn_wifi $fn_temperature $fn_storage $fn_memory $fn_clock $fn_battery"
 done < $PANEL_FIFO
 
