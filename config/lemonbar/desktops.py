@@ -12,7 +12,7 @@ def desktop_has_nodes(desktop):
 	return int.from_bytes(get_output_from_shell(num_nodes_query), "big")
 
 def add_bg_hover(markup):
-	return f"%{{B{hover_color}}}{markup}%{{B-}}"
+	return f"%{{U{red}}}%{{+u}}{markup}%{{-u}}%{{U-}}"
 
 def add_action_handler(markup, desktop):
 	return f"%{{A:bspc desktop -f {desktop}:}}{markup}%{{A}}"
