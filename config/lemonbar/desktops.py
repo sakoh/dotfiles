@@ -3,7 +3,7 @@ from utils import get_output_from_shell
 #import pdb
 
 # colors
-red = "#bf616a"
+magenta = "#b48ead"
 frostgreen="#8fbcbb"
 hover_color = "#2e3440"
 
@@ -12,13 +12,13 @@ def desktop_has_nodes(desktop):
 	return int.from_bytes(get_output_from_shell(num_nodes_query), "big")
 
 def add_bg_hover(markup):
-	return f"%{{U{red}}}%{{+u}}{markup}%{{-u}}%{{U-}}"
+	return f"%{{U{magenta}}}%{{+u}}{markup}%{{-u}}%{{U-}}"
 
 def add_action_handler(markup, desktop):
 	return f"%{{A:bspc desktop -f {desktop}:}}{markup}%{{A}}"
 
 def render_desktop(desktop, icon):
-	color = red if desktop_has_nodes(desktop) else frostgreen
+	color = magenta if desktop_has_nodes(desktop) else frostgreen
 	return f"%{{F{color}}}  {icon}  %{{F-}}"
 
 #pdb.set_trace()

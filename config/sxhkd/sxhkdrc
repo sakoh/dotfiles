@@ -4,15 +4,15 @@
 
 # terminal emulator
 super + Return
-	alacritty	
+	alacritty
 
 # program launcher
 super + @space
-	rofi -show run -font "hack 18" 
+	rofi -show run -font "hack 18"
 
 # window switcher
 super + alt + w
-	rofi -show window -font "hack 18" 
+	rofi -show window -font "hack 18"
 
 # power menu
 super + alt + p
@@ -21,6 +21,10 @@ super + alt + p
 # make sxhkd reload its configuration files:
 super + Escape
 	pkill -USR1 -x sxhkd
+
+# Lock the screen
+super + alt + l
+	betterlockscreen -l
 
 #
 # bspwm hotkeys
@@ -65,7 +69,6 @@ super + ctrl + {m,x,y,z}
 # focus the node in the given direction
 super + {_,shift + }{h,j,k,l}
 	bspc node -{f,s} {west,south,north,east}
-
 # focus the node for the given path jump
 super + {p,b,comma,period}
 	bspc node -f @{parent,brother,first,second}
@@ -98,7 +101,7 @@ super + {_,shift + }{1-9,0}
 
 # preselect the direction
 super + ctrl + {h,j,k,l}
-	bspc node -p {west,south,north,east}
+	bspc node -p {west,south,north,east} && alacritty
 
 # preselect the ratio
 super + ctrl + {1-9}
@@ -130,11 +133,11 @@ super + {Left,Down,Up,Right}
 
 # volume control
 alt + F2
-	amixer -c 1 set Master 5%-
+	 amixer -c 1 set Master 5%-
 alt + F3
-	amixer -c 1 set Master 5%+
+	 amixer -c 1 set Master 5%+
 alt + F1
-        amixer -c 1 set Master toggle
+         amixer -c 1 set Master toggle
 
 # App Shortcuts
 super + alt + i
@@ -144,7 +147,7 @@ super + ctrl + i
 	icecat
 
 super + alt + d
-	flatpak run com.discordapp.Discord
+	bspc desktop -f 0x00200006 && alacritty -e 6cord
 
 super + alt + e
 	element-desktop
