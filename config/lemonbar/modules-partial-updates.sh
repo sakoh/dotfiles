@@ -31,8 +31,8 @@ Desktops() {
 
 Clock() {
 	while true; do
-		TIME=$(date -u "+%H:%M:%S")
-		echo -e "CLOCK %{F$MAGENTA} \uf017 ${TIME} %{F-}"
+		TIME=$(date "+%r")
+		echo -e "CLOCK %{F$MAGENTA} \uf017 $TIME %{F-}"
 		sleep 1;
 	done
 }
