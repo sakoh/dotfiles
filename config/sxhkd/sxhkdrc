@@ -23,16 +23,20 @@ super + Escape
 	pkill -USR1 -x sxhkd
 
 # Lock the screen
-super + alt + l
+super + alt + q
 	betterlockscreen -l
+
+# Screenshot
+super + Print
+	scrot
 
 #
 # bspwm hotkeys
 #
 
 # quit/restart bspwm
-super + alt + {q,r}
-	bspc {quit,wm -r}
+super + alt + r
+	bspc wm -r
 
 # close and kill
 super + {_,shift + }w
@@ -146,7 +150,7 @@ super + ctrl + i
 	icecat
 
 super + alt + d
-	bspc desktop -f 0x00200006 && alacritty -e 6cord
+	~/Discord-0.0.12-x86_64.AppImage
 
 super + alt + e
 	element-desktop

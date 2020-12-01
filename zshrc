@@ -107,10 +107,12 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 export Broswer=/usr/bin/firefox
-export RADV_PERFTEST=aco
+#export RADV_PERFTEST=aco
 export TERM=xterm-256color
 alias vim=nvim
 export Editor=vim
+export TZ=America/Los_Angeles
+export HARDWARECLOCK=localtime
 
 source ~/powerlevel10k/powerlevel10k.zsh-theme
 
