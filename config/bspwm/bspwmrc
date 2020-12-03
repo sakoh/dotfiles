@@ -1,5 +1,5 @@
 #!/bin/sh
-pkill lemonbar
+killall -q lemonbar
 $HOME/.config/lemonbar/launch.sh &
 pgrep -x sxhkd > /dev/null || sxhkd &
 
@@ -17,7 +17,7 @@ bspc config gapless_monocle      true
 bspc config focus_follows_pointer true
 
 bspc rule -a Emacs desktop='^1' follow=on
-bspc rule -a Firefox desktop='^2' follow=on
+bspc rule -a Brave-browser desktop='^2' follow=on
 bspc rule -a IceCat desktop='^2' follow=on
 bspc rule -a discord desktop='^3' follow=on
 bspc rule -a Element desktop='^3' follow=on

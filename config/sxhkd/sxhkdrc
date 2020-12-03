@@ -144,13 +144,13 @@ alt + F1
 
 # App Shortcuts
 super + alt + i
-	firefox
+	brave
 
 super + ctrl + i
 	icecat
 
 super + alt + d
-	~/Discord-0.0.12-x86_64.AppImage
+	discord
 
 super + alt + e
 	element-desktop
