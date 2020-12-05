@@ -35,8 +35,8 @@ colors:
     white: '#eceff4'
 
 font:
-  regular:
-    family: "MesloLGS NF"
+  normal:
+    family: 'Fira Mono Nerd Font'
   size: 9
 
 window:
