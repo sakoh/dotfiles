@@ -37,7 +37,7 @@ colors:
 font:
   normal:
     family: 'Fira Mono Nerd Font'
-  size: 9
+  size: 8
 
 window:
   padding:
