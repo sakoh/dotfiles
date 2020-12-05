@@ -110,7 +110,8 @@ export Broswer=/usr/bin/firefox
 #export RADV_PERFTEST=aco
 export TERM=xterm-256color
 alias vim=nvim
-export Editor=vim
+export VISUAL=nvim
+export EDITOR=nvim
 export TZ=America/Los_Angeles
 export HARDWARECLOCK=localtime
 
