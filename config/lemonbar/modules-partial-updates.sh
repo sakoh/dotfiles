@@ -108,7 +108,7 @@ Wifi() {
 CheckUpdates() {
 	while true; do
 		UPDATES=$(checkupdates | wc -l)
-		echo -e "CHECKUPDATES %{A:alacritty -e yay -Syy:}%{F$MAGENTA} \uf466 $UPDATES %{F-}%{A}"
+		echo -e "CHECKUPDATES %{A:alacritty -e yay:}%{F$MAGENTA} \uf466 $UPDATES %{F-}%{A}"
 		sleep 10;
 	done
 }
@@ -133,8 +133,8 @@ Temperature() {
 Storage() {
 	while true; do
 		ICON="\uf1c0"
-		AVAILABLE=$(df -h | awk '/nvme0n1p2/ {print $4}' | sed 's/G//g')
-		SIZE=$(df -h | awk '/nvme0n1p2/ {print $2}')
+		AVAILABLE=$(df -h | awk 'NR==3 {print $4}' | sed 's/G//g')
+		SIZE=$(df -h | awk 'NR==3 {print $2}')
 
 		echo -e "STORAGE %{F$GREEN} $ICON $AVAILABLE/$SIZE %{F-}"
 		sleep 2;
