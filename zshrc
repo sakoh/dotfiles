@@ -5,6 +5,14 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+export Broswer=/usr/bin/firefox
+export TERM=xterm-256color
+alias vim=nvim
+export VISUAL=nvim
+export EDITOR=nvim
+export TZ=America/Los_Angeles
+export HARDWARECLOCK=localtime
+
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -105,15 +113,6 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-
-export Broswer=/usr/bin/firefox
-#export RADV_PERFTEST=aco
-export TERM=xterm-256color
-alias vim=nvim
-export VISUAL=nvim
-export EDITOR=nvim
-export TZ=America/Los_Angeles
-export HARDWARECLOCK=localtime
 
 source ~/powerlevel10k/powerlevel10k.zsh-theme
 
