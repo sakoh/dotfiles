@@ -20,6 +20,13 @@ ActiveWindow() {
 	done
 }
 
+CPU() {
+	while true; do
+		echo -e "CPU \uf2db $(grep 'cpu ' /proc/stat | awk '{usage=($2+$4)*100/($2+$4+$5)} END {print usage "%"}')"
+		sleep 1
+	done
+}
+
 Desktops() {
 	while true; do
 		DESKTOPS=$(python $HOME/.config/lemonbar/desktops.py)
@@ -151,6 +158,7 @@ Memory > $PANEL_FIFO &
 Temperature > $PANEL_FIFO &
 Storage > $PANEL_FIFO &
 ActiveWindow > $PANEL_FIFO &
+CPU > $PANEL_FIFO &
 
 while read -r line; do
 	case $line in
@@ -185,7 +193,10 @@ while read -r line; do
 		ACTIVEWINDOW*)
 			fn_active_window="${line#ACTIVEWINDOW}"
 			;;
+		CPU*)
+			fn_cpu="${line#CPU }"
+			;;
 	esac
-	printf "%s\n" "%{l}$fn_desktop $fn_active_window %{r}$fn_sound $fn_wifi $fn_temperature $fn_storage $fn_checkupdates $fn_memory $fn_clock $fn_battery"
+	printf "%s\n" "%{l}$fn_desktop $fn_active_window %{r}$fn_sound $fn_cpu $fn_wifi $fn_temperature $fn_storage $fn_checkupdates $fn_memory $fn_clock $fn_battery"
 done < $PANEL_FIFO
 
