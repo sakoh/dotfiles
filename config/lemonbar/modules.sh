@@ -22,7 +22,7 @@ ActiveWindow() {
 
 CPU() {
 	while true; do
-		echo -e "CPU \uf2db $(grep 'cpu ' /proc/stat | awk '{usage=($2+$4)*100/($2+$4+$5)} END {print usage "%"}')"
+		echo -e "CPU %{F$FROSTGREEN}\uf2db $(grep 'cpu ' /proc/stat | awk '{usage=($2+$4)*100/($2+$4+$5)} END {print usage "%"}')%{F-}"
 		sleep 1
 	done
 }
