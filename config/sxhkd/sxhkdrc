@@ -38,6 +38,10 @@ super + Print
 super + alt + r
 	bspc wm -r
 
+# set master-stack layout
+super + alt + t
+	bsp-layout set tall
+
 # close and kill
 super + {_,shift + }w
 	bspc node -{c,k}
@@ -144,13 +148,13 @@ alt + F1
 
 # App Shortcuts
 super + alt + i
-	brave
+	$HOME/appimages/Brave_Web_Browser-x86_64.AppImage
 
 super + ctrl + i
 	firefox
 
 super + alt + d
-	discord
+	$HOME/appimages/Discord-0.0.13-x86_64.AppImage
 
 super + alt + e
 	element-desktop
