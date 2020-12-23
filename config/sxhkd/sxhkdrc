@@ -140,11 +140,11 @@ super + {Left,Down,Up,Right}
 
 # volume control
 alt + F2
-	 amixer -c 1 set Master 5%-
+	pactl set-sink-volume 0 -5%
 alt + F3
-	 amixer -c 1 set Master 5%+
+	pactl set-sink-volume 0 +5%
 alt + F1
-         amixer -c 1 set Master toggle
+        pactl set-sink-volume 0 toggle
 
 # App Shortcuts
 super + alt + i
