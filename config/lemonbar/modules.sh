@@ -73,8 +73,8 @@ Battery() {
 
 Sound() {
 	while true; do
-		NOTMUTED=$( amixer -c 1 sget Master | grep "\[on\]" )
-		VOL=$(amixer -c 1 sget Master | awk -F'[][]' 'NR==5 {print $2}' | sed 's/%//g')
+		NOTMUTED=$( amixer -c 2 sget Master | grep "\[on\]" )
+		VOL=$(pamixer --get-volume)
 		if [[ ! -z $NOTMUTED ]] ; then
 			OUTPUT="$VOL%"
 			if [[ $VOL -ge 50 ]]; then
@@ -140,8 +140,8 @@ Temperature() {
 Storage() {
 	while true; do
 		ICON="\uf1c0"
-		AVAILABLE=$(df -h | awk 'NR==3 {print $4}' | sed 's/G//g')
-		SIZE=$(df -h | awk 'NR==3 {print $2}')
+		AVAILABLE=$(df -h | awk 'NR==5 {print $4}' | sed 's/G//g')
+		SIZE=$(df -h | awk 'NR==5 {print $2}')
 
 		echo -e "STORAGE %{F$GREEN} $ICON $AVAILABLE/$SIZE %{F-}"
 		sleep 2;
