@@ -154,7 +154,7 @@ super + ctrl + i
 	firefox
 
 super + alt + d
-	$HOME/appimages/Discord-0.0.13-x86_64.AppImage
+	flatpak run com.discordapp.Discord
 
 super + alt + e
 	element-desktop
