@@ -22,7 +22,7 @@ mkfifo $PANEL_FIFO
 
 CPU() {
 	while true; do
-		echo -e "CPU \uf2db $(grep 'cpu ' /proc/stat | awk '{usage=($2+$4)*100/($2+$4+$5)} END {print usage "%"}')"
+		echo -e "CPU \uf2db $(grep 'cpu ' /proc/stat | awk '{usage=($2+$4)*100/($2+$4+$5)} END {print usage "%"}') "
 		sleep 1
 	done
 }
@@ -120,15 +120,15 @@ Memory() {
 	done
 }
 
-#Temperature() {
-	#while true; do
-		#TEMP=$(sensors | awk '/temp1: / {print $2 }' | awk 'NR==2 {print}')
-		#OUTPUT=$(python $HOME/.config/lemonbar/temperature.py $TEMP)
+Temperature() {
+	while true; do
+		TEMP=$(sensors | awk '/temp1: / {print $2 }' | awk 'NR==2 {print}')
+		OUTPUT=$(python $HOME/.config/dwmblocks/temperature.py $TEMP)
 
-		#echo -e "TEMPERATURE $OUTPUT"
-		#sleep 0.5;
-	#done
-#}
+		echo -e "TEMPERATURE $OUTPUT"
+		sleep 0.5;
+	done
+}
 
 Storage() {
 	while true; do
@@ -190,6 +190,6 @@ while read -r line; do
 			fn_cpu="${line#CPU }"
 			;;
 	esac
-	xsetroot -name "$fn_sound $fn_cpu $fn_wifi $fn_temperature $fn_storage $fn_checkupdates $fn_memory $fn_clock $fn_battery"
+	xsetroot -name " $fn_sound | $fn_wifi | $fn_cpu | $fn_temperature | $fn_storage | $fn_memory | $fn_clock | $fn_battery "
 done < $PANEL_FIFO
 
