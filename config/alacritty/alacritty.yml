@@ -11,10 +11,10 @@
 colors:
   primary:
     background: '#101726'
-    foreground: '#d8dee9'
+    foreground: '#8fbcbb'
   cursor:
-    text: '#2e3440'
-    cursor: '#d8dee9'
+    text: '#101726'
+    cursor: '#8fbcbb'
   normal:
     black: '#3b4252'
     red: '#bf616a'
@@ -36,7 +36,7 @@ colors:
 
 font:
   normal:
-    family: 'Fira Mono Nerd Font'
+    family: 'Hack'
   size: 8
 
 window:
