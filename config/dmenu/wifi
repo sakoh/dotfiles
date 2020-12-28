@@ -1,0 +1,9 @@
+#!/bin/sh
+
+SELECTED=$(connmanctl services | dmenu)
+
+if [ -z ${SELECTED} ]; then
+	exit
+fi
+
+alacritty --hold -e connmanctl connect $SELECTED

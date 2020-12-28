@@ -1,0 +1,10 @@
+#!/bin/sh
+
+SELECTED=$(cat $HOME/.config/dmenu/power.txt | dmenu)
+
+if [ -z ${SELECTED} ]; then
+	exit
+fi
+
+sudo $SELECTED
+
