@@ -29,4 +29,4 @@ def make_temp_dict(temp):
 
 temp_dict = make_temp_dict(temp)
 
-print(f" {temp_dict['icon']} {temp} ")
+print(f"{temp_dict['icon']} {temp} ")
