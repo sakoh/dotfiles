@@ -13,63 +13,47 @@ PANEL_FIFO=/tmp/panel-fifo
 [ -e $PANEL_FIFO ] && rm $PANEL_FIFO
 mkfifo $PANEL_FIFO
 
-#ActiveWindow() {
-	#while true; do
-		#echo "ACTIVEWINDOW $(xdotool getwindowfocus getwindowname)"
-		#sleep 1
-	#done
-#}
-
 CPU() {
 	while true; do
-		echo -e "CPU \uf2db $(grep 'cpu ' /proc/stat | awk '{usage=($2+$4)*100/($2+$4+$5)} END {print usage "%"}') "
+		echo -e "CPU  $(grep 'cpu ' /proc/stat | awk '{usage=($2+$4)*100/($2+$4+$5)} END {print usage "%"}') "
 		sleep 1
 	done
 }
 
-#Desktops() {
-	#while true; do
-		#DESKTOPS=$(python $HOME/.config/lemonbar/desktops.py)
-
-		#echo "DESKTOPS $DESKTOPS"
-		#sleep 0.5
-	#done
-#}
-
 Clock() {
 	while true; do
 		TIME=$(date "+%r")
-		echo -e "CLOCK \uf017 $TIME "
+		echo -e "CLOCK  $TIME "
 		sleep 1;
 	done
 }
 
-Battery() {
-	while true; do
-        	BATPERC="$(acpi | awk '/Battery 0:/ {print $4}' | sed 's/,//g')"
-		BAT="$(acpi | awk '/Battery 0:/ {print $4}' | sed 's/%,//g')"
+#Battery() {
+	#while true; do
+                #BATPERC="$(acpi | awk '/Battery 0:/ {print $4}' | sed 's/,//g')"
+		#BAT="$(acpi | awk '/Battery 0:/ {print $4}' | sed 's/%,//g')"
 
-		if [[ "$(acpi | awk '/Battery 0:/ {print $3}')" == 'Charging,' ]]; then
-        		ICON="\uf5e7"
-			#FGCOLOR=$GREEN
-		elif [[ $BAT -ge 90 ]]; then
-			ICON="\uf240"
-			#FGCOLOR=$GREEN
-		elif [[ $BAT -ge 50 ]]; then
-			ICON="\uf241"
-			#FGCOLOR=$GREEN
-		elif [[ $BAT -ge 25 ]]; then
-			ICON="\uf242"
-			#FGCOLOR=$YELLOW
-		else
-			ICON="\uf244"
-			#FGCOLOR=$RED
-		fi
+		#if [[ "$(acpi | awk '/Battery 0:/ {print $3}')" == 'Charging,' ]]; then
+                        #ICON="\uf5e7"
+			##FGCOLOR=$GREEN
+		#elif [[ $BAT -ge 90 ]]; then
+			#ICON="\uf240"
+			##FGCOLOR=$GREEN
+		#elif [[ $BAT -ge 50 ]]; then
+			#ICON="\uf241"
+			##FGCOLOR=$GREEN
+		#elif [[ $BAT -ge 25 ]]; then
+			#ICON="\uf242"
+			##FGCOLOR=$YELLOW
+		#else
+			#ICON="\uf244"
+			##FGCOLOR=$RED
+		#fi
 
-		echo -e "BATTERY $ICON $BATPERC "
-		sleep 2
-	done
-}
+		#echo -e "BATTERY $ICON $BATPERC "
+		#sleep 2
+	#done
+#}
 
 Sound() {
 	while true; do
@@ -77,13 +61,13 @@ Sound() {
 
 		if [[ $VOL -ge 50 ]]; then
 			#FGCOLOR=$GREEN
-			ICON="\uf028"
+			ICON=""
 		elif [[$VOL -le 0 ]]; then
 			#FGCOLOR=$RED
-			ICON="\uf026"
+			ICON=""
 		else
 			#FGCOLOR=$YELLOW
-			ICON="\uf027"
+			ICON=""
 		fi
 
 		echo -e "SOUND $ICON $VOL% "
@@ -91,38 +75,38 @@ Sound() {
 	done
 }
 
-Wifi() {
-	while true; do
-		STATE=$(connmanctl state | awk 'NR == 1 {print $3}')
-		#FGCOLOR=$MAGENTA
-		if [[ $STATE == "online" ]]; then
-			echo "WIFI  Connected "
-		else
-			echo "WIFI 睊Not Connected "
-		fi
-
-		sleep 3;
-	done
-}
-
-#CheckUpdates() {
+#Wifi() {
 	#while true; do
-		#UPDATES=$(checkupdates | wc -l)
-		#echo -e "CHECKUPDATES %{A:alacritty -e yay:}%{F$MAGENTA} \uf466 $UPDATES %{F-}%{A}"
-		#sleep 10;
+		#STATE=$(connmanctl state | awk 'NR == 1 {print $3}')
+		##FGCOLOR=$MAGENTA
+		#if [[ $STATE == "online" ]]; then
+			#echo "WIFI  Connected "
+		#else
+			#echo "WIFI 睊Not Connected "
+		#fi
+
+		#sleep 3;
 	#done
 #}
 
+CheckUpdates() {
+	while true; do
+		UPDATES=$(checkupdates | wc -l)
+		echo -e "CHECKUPDATES  $UPDATES "
+		sleep 10;
+	done
+}
+
 Memory() {
 	while true; do
-		echo -e "MEMORY \uf538 $(free -h | awk '/^Mem:/ {print $3 "/" $2}') "
+		echo -e "MEMORY  $(free -h | awk '/^Mem:/ {print $3 "/" $2}') "
 		sleep 1;
 	done
 }
 
 Temperature() {
 	while true; do
-		TEMP=$(sensors | awk '/temp1: / {print $2 }' | awk 'NR==2 {print}')
+		TEMP=$(sensors | awk '/Tdie:/ {print $2}')
 		OUTPUT=$(python $HOME/.config/dwmblocks/temperature.py $TEMP)
 
 		echo -e "TEMPERATURE $OUTPUT"
@@ -132,45 +116,40 @@ Temperature() {
 
 Storage() {
 	while true; do
-		ICON="\uf1c0"
-		AVAILABLE=$(df -h | awk 'NR==5 {print $4}' | sed 's/G//g')
-		SIZE=$(df -h | awk 'NR==5 {print $2}')
+		ICON=""
+		AVAILABLE=$(df -h | awk 'NR==4 {print $4}' | sed 's/G//g')
+		SIZE=$(df -h | awk 'NR==4 {print $2}')
 
 		echo -e "STORAGE $ICON $AVAILABLE/$SIZE "
 		sleep 2;
 	done
 }
 
-Desktops > $PANEL_FIFO &
 Sound > $PANEL_FIFO &
-Wifi > $PANEL_FIFO &
+#Wifi > $PANEL_FIFO &
 Clock > $PANEL_FIFO &
-Battery > $PANEL_FIFO &
+#Battery > $PANEL_FIFO &
 CheckUpdates > $PANEL_FIFO &
 Memory > $PANEL_FIFO &
 Temperature > $PANEL_FIFO &
 Storage > $PANEL_FIFO &
-ActiveWindow > $PANEL_FIFO &
+#ActiveWindow > $PANEL_FIFO &
 CPU > $PANEL_FIFO &
 
 while read -r line; do
 	case $line in
-		DESKTOPS*)
-			fn_desktop="${line#DESKTOPS }"
-			;;
-
 		SOUND*)
 			fn_sound="${line#SOUND }"
 			;;
-		WIFI*)
-			fn_wifi="${line#WIFI }"
-			;;
+		#WIFI*)
+			#fn_wifi="${line#WIFI }"
+			#;;
 		CLOCK*)
 			fn_clock="${line#CLOCK }"
 			;;
-		BATTERY*)
-			fn_battery="${line#BATTERY }"
-			;;
+		#BATTERY*)
+			#fn_battery="${line#BATTERY }"
+			#;;
 		CHECKUPDATES*)
 			fn_checkupdates="${line#CHECKUPDATES }"
 			;;
@@ -183,13 +162,13 @@ while read -r line; do
 		STORAGE*)
 			fn_storage="${line#STORAGE }"
 			;;
-		ACTIVEWINDOW*)
-			fn_active_window="${line#ACTIVEWINDOW}"
-			;;
+		#ACTIVEWINDOW*)
+			#fn_active_window="${line#ACTIVEWINDOW}"
+			#;;
 		CPU*)
 			fn_cpu="${line#CPU }"
 			;;
 	esac
-	xsetroot -name " $fn_sound | $fn_wifi | $fn_cpu | $fn_temperature | $fn_storage | $fn_memory | $fn_clock | $fn_battery "
+	xsetroot -name " $fn_sound | $fn_cpu | $fn_temperature | $fn_storage | $fn_memory | $fn_checkupdates | $fn_clock "
 done < $PANEL_FIFO
 
