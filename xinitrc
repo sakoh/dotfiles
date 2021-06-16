@@ -1,6 +1,7 @@
-nitrogen --restore
+xrandr -s 1920x1080 -r 240
+$HOME/.fehbg
 xsetroot -cursor_name left_ptr
-pulseaudio &
-picom -f &
+pipewire &
+compton -f &
 $HOME/.dwmblocks &
 exec dwm
