@@ -11,9 +11,9 @@ let g:vim_tree_auto_open = 1
 let g:nvim_tree_auto_close = 1
 let g:nvim_tree_follow = 1
 
-nnoremap <C-t> :NvimTreeToggle <CR>
+nnoremap <C-n> :NvimTreeToggle <CR>
 nnoremap <leader>r :NvimTreeRefresh <CR>
-nnoremap <leader>t :NvimTreeFindFile <CR>
+nnoremap <leader>n :NvimTreeFindFile <CR>
 
 nnoremap <silent> <C-Z> :tabnext <CR>
 nnoremap <silent> <C-X> :tabprevious <CR>
