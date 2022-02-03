@@ -1,19 +1,23 @@
-#!/bin/bash
+#!/bin/sh
 
-while true; do
-        VOL=$(pactl list sinks | rg '^[[:space:]]Volume:' | awk '{print $5}' | sed 's/%//')
-        MUTED=$(pactl list sinks | rg '^[[:space:]]Mute:' | awk '{print $2}')
+while read -r line; do
+	case $line in
+		SOUND*)
+			fn_sound="${line#SOUND }"
+			;;
+		CLOCK*)
+			fn_clock="${line#CLOCK }"
+			;;
+		MEMORY*)
+			fn_memory="${line#MEMORY }"
+			;;
+		STORAGE*)
+			fn_storage="${line#STORAGE }"
+			;;
+		CPU*)
+			fn_cpu="${line#CPU }"
+			;;
+	esac
+	xsetroot -name " $fn_sound | $fn_cpu | $fn_storage | $fn_memory | $fn_clock "
+done < "$1"
 
-        if [[ $MUTED == 'yes' ]]; then
-		ICON=""
-        elif [[ $VOL -ge 50 ]]; then
-                ICON=""
-        elif [[$VOL -le 0 ]]; then
-                ICON=""
-        else
-                ICON=""
-	fi
-
-        echo "SOUND $ICON $VOL% "
-        sleep 1;
-done
