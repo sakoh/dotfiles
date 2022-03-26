@@ -1,0 +1,5 @@
+#!/bin/sh
+SELECTED=$(ls -1 .password-store | sed -e 's/\.gpg$//' | dmenu -p 'Select password')
+
+pass -c $SELECTED
+

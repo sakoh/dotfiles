@@ -1,0 +1,11 @@
+#!/bin/sh
+
+SELECTED=$(ykman oath accounts list | dmenu -p "Select account for yubikey OTP")
+
+if [ -z $SELECTED ]; then
+	exit
+fi
+
+ykman oath accounts code $SELECTED | awk '{print $2}' | xsel --clipboard
+
+
