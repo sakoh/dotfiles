@@ -1,0 +1,8 @@
+#!/bin/sh
+SELECTED=$(awk '/^Host/ {print $2}' .ssh/config | sort | dmenu -p 'Choose client for ssh connection')
+
+if [ -z $SELECTED ]; then
+	exit
+fi
+
+alacritty -e ssh $SELECTED
