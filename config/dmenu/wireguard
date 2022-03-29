@@ -6,4 +6,4 @@ if [ -z $SELECTED ]; then
 	exit
 fi
 
-sudo sv $SELECTED wireguard
+alacritty -e sudo sv $SELECTED wireguard
