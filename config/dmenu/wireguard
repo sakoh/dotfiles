@@ -1,0 +1,9 @@
+#!/bin/sh
+
+SELECTED=$(cat $HOME/.config/dmenu/wireguard.txt | dmenu -p 'Wireguard Interface')
+
+if [ -z $SELECTED ]; then
+	exit
+fi
+
+sudo sv $SELECTED wireguard
