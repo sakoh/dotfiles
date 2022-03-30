@@ -12,3 +12,4 @@ cp xinitrc $HOME/.xinitrc
 cp p10k.zsh $HOME/.p10k.zsh
 cp tmux.conf $HOME/.tmux.conf
 cp dwmblocks $HOME/.dwmblocks
+cp vimrc $HOME/.vimrc
