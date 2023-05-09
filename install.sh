@@ -3,7 +3,6 @@
 cp -r config/* $HOME/.config/
 cp -r Pictures $HOME/
 #cp etc/pulse/default.pa /etc/pulse/default.pa
-#cp etc/xdg/picom.conf /etc/xdg/picom.conf
 mkdir $HOME/.fonts
 cp fonts/* $HOME/.fonts/
 cp zprofile $HOME/.zprofile
